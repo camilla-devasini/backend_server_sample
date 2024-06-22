@@ -193,7 +193,7 @@ app.post("/login", (req, res) => {
   console.log(req.body);
   // se email e password sono uguali a test@test e pass123 ovvero quelli che ho impostato io come corretti
   // allora mi aspetto che il backend esegua una chiamata che restituisca i dati dell'utente e il suo jwt token
-  if (email === "qq@qq.it" && password === "1111") {
+  if (email === "test@test" && password === "pass123") {
     // creo il token jwt contenente userId e role
     const token = jwt.sign(userData, "my_secret_key", {
       expiresIn: "1h",
