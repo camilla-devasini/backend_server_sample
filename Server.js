@@ -8,7 +8,7 @@ app.use(cookieParser());
 let cors = require("cors");
 
 const port = 3001;
-// Admin's slaves for the dashboard
+
 const allSlavesData = [
   {
     id: 1,
@@ -25,7 +25,8 @@ const allSlavesData = [
     status: "pending",
     password: null,
     passwordTemporary: "Ahfj!2-E3rh4du?!Qlb2",
-    isActive: false,
+    credits: 100,
+    lastCreditsUpdateReason: null,
     projects: [
       {
         id: 1,
@@ -41,6 +42,7 @@ const allSlavesData = [
         readingMethod: "Magicmotorsport",
         extraOptions: "Only options --adblue",
         price: 100,
+        tickets: [1, 2, 3],
       },
       {
         id: 2,
@@ -119,6 +121,8 @@ const allSlavesData = [
     status: "banned",
     password: null,
     passwordTemporary: "Ahfj!23445.Erhdu",
+    credits: 200,
+    lastCreditsUpdateReason: null,
     projects: [
       {
         id: 1,
@@ -212,6 +216,8 @@ const allSlavesData = [
     status: "active",
     password: null,
     passwordTemporary: "Ahfj!23445.Erhdu",
+    credits: 300,
+    lastCreditsUpdateReason: null,
     projects: [
       {
         id: 1,
@@ -227,6 +233,7 @@ const allSlavesData = [
         readingMethod: "Magicmotorsport",
         extraOptions: "Only options --adblue",
         price: 100,
+        ticketsId: [1, 2],
       },
       {
         id: 2,
@@ -305,6 +312,9 @@ const allSlavesData = [
     status: "active",
     password: null,
     passwordTemporary: "Ahfj!23445.Erhdu",
+    credits: 0,
+
+    lastCreditsUpdateReason: null,
     projects: [
       {
         id: 1,
@@ -398,6 +408,9 @@ const allSlavesData = [
     status: "pending",
     password: null,
     passwordTemporary: "Ahfj!23445.Erhdu",
+    credits: 5,
+
+    lastCreditsUpdateReason: null,
     projects: [
       {
         id: 1,
@@ -477,6 +490,155 @@ const allSlavesData = [
     ],
   },
 ];
+
+const allTickets = [
+  {
+    id: 1,
+    userId: 1,
+    projectId: 1, // id della lavorazione collegata al ticket
+    companyName: "Auto23",
+    status: "inProgress", // altri status: "open", "completed", "closed"
+    category: "billing",
+    title: "Problema x",
+    description: "Descrizione del problema",
+    date: "2024-07-05",
+    lastUpdated: "2024-07-05",
+    attachments: null,
+    messages: [],
+    resolutionDate: null,
+  },
+  {
+    id: 2,
+    userId: 2,
+    projectId: 2,
+    companyName: "Autooos",
+    status: "open", // altri status: "inProgress", "completed", "closed"
+    category: "technical",
+    title: "Problema y",
+    description: "Descrizione del problema",
+    date: "2024-07-05",
+    lastUpdated: "2024-07-05",
+    attachments: null,
+    messages: [
+      {
+        role: "admin",
+        message: "Commento dell'admin",
+        sendTime: "2024-07-05",
+      },
+      {
+        role: "user",
+        message: "Commento dello slave",
+        sendTime: "2024-07-06",
+      },
+    ],
+    resolutionDate: null,
+  },
+  {
+    id: 3,
+    userId: 3,
+    projectId: 3,
+    companyName: "Ciaociao",
+    status: "completed", // altri status: "open", "inProgress", "closed"
+    category: "technical",
+    title: "Problema z",
+    description: "Descrizione del problema",
+    date: "2024-07-05",
+    lastUpdated: "2024-07-05",
+    attachments: null,
+    messages: [
+      {
+        role: "admin",
+        message: "Commento dell'admin",
+        sendTime: "2024-07-05",
+      },
+      {
+        role: "user",
+        message: "Commento dello slave",
+        sendTime: "2024-07-06",
+      },
+    ],
+    resolutionDate: "2024-07-07",
+  },
+  {
+    id: 4,
+    userId: 3,
+    projectId: 4,
+    companyName: "Ciaociao",
+    status: "closed", // altri status: "open", "inProgress", "closed"
+    category: "technical",
+    title: "Problema t",
+    description: "Descrizione del problema",
+    date: "2024-07-05",
+    lastUpdated: "2024-07-05",
+    attachments: null,
+    messages: [
+      {
+        role: "admin",
+        message: "Commento dell'admin",
+        sendTime: "2024-07-05",
+      },
+      {
+        role: "user",
+        message: "Commento dello slave",
+        sendTime: "2024-07-06",
+      },
+    ],
+    resolutionDate: "2024-07-07",
+  },
+  {
+    id: 5,
+    userId: 2,
+    projectId: 5,
+    companyName: "Ciaociao",
+    status: "closed", // altri status: "open", "inProgress", "closed"
+    category: "technical",
+    title: "Problema t",
+    description: "Descrizione del problema",
+    date: "2024-07-05",
+    lastUpdated: "2024-07-05",
+    attachments: null,
+    messages: [
+      {
+        role: "admin",
+        message: "Commento dell'admin",
+        sendTime: "2024-07-05",
+      },
+      {
+        role: "user",
+        message: "Commento dello slave",
+        sendTime: "2024-07-06",
+      },
+    ],
+    resolutionDate: "2024-07-07",
+  },
+  {
+    id: 6,
+    userId: 2,
+    projectId: 6,
+    companyName: "Ciaociao",
+    status: "closed", // altri status: "open", "inProgress", "closed"
+    category: "technical",
+    title: "Problema t",
+    description: "Descrizione del problema",
+    date: "2024-07-05",
+    lastUpdated: "2024-07-05",
+    attachments: null,
+    messages: [
+      {
+        role: "admin",
+        message: "Commento dell'admin",
+        sendTime: "2024-07-05",
+      },
+      {
+        role: "user",
+        message: "Commento dello slave",
+        sendTime: "2024-07-06",
+      },
+    ],
+    resolutionDate: "2024-07-07",
+  },
+];
+
 app.use(cors());
 app.use(bodyParser.json());
 app.get("/", (req, res) => {
@@ -486,7 +648,7 @@ const userData = {
   userId: 1,
   role: "admin",
 };
-// GET
+// USER
 app.get(`/user/:userId/settings`, (req, res) => {
   const userId = req.params.userId;
   res.status(200).send({
@@ -495,6 +657,7 @@ app.get(`/user/:userId/settings`, (req, res) => {
     role: "admin",
   });
 });
+
 app.get(`/user/:userId`, (req, res) => {
   const userId = req.params.userId;
   res.status(200).send({
@@ -502,6 +665,23 @@ app.get(`/user/:userId`, (req, res) => {
     designId: 2,
     role: "admin",
     firstName: "Mario",
+    lastName: "Rossi",
+    companyName: "Rossi srl",
+    email: "test@test.com",
+    address: "Via Roma 1",
+    city: "Roma",
+    zipcode: "00100",
+    vatNumber: "12345678901",
+    phone: "3334445555",
+  });
+});
+
+app.put(`/user/:userId`, (req, res) => {
+  const userId = req.params.userId;
+  res.status(200).send({
+    userId: userId,
+    designId: 2,
+    name: "Mario",
     lastName: "Rossi",
     companyName: "Rossi srl",
     email: "test@test.com",
@@ -570,6 +750,7 @@ app.get("/faq", (req, res) => {
   });
 });
 
+// SLAVES
 app.get("/slaves", (req, res) => {
   const { page = 1, search, statusFilter } = req.query;
   const limit = 4; // number of items per page
@@ -607,6 +788,13 @@ app.get("/slaves", (req, res) => {
       itemsPerPage: limit,
       totalPages: totalPages,
       totalItems: resultsCount,
+      totalActiveUsers: allSlavesData.filter((item) => item.status === "active")
+        .length,
+      totalPendingUsers: allSlavesData.filter(
+        (item) => item.status === "pending"
+      ).length,
+      totalBannedUsers: allSlavesData.filter((item) => item.status === "banned")
+        .length,
     },
   });
 });
@@ -661,9 +849,27 @@ app.get(`/slaves/:slaveId/projects`, (req, res) => {
       itemsPerPage: limit,
       totalPages: totalPages,
       totalItems: resultsCount,
+      totalCompletedProjects: slave.projects.filter(
+        (item) => item.status === "completed"
+      ).length,
+      totalPendingProjects: slave.projects.filter(
+        (item) => item.status === "pending"
+      ).length,
+      totalRefundedProjects: slave.projects.filter(
+        (item) => item.status === "refunded"
+      ).length,
+      totalFailedProjects: slave.projects.filter(
+        (item) => item.status === "failed"
+      ).length,
+      totalNewProjects: slave.projects.filter((item) => item.status === "new")
+        .length,
+      totalInProgressProjects: slave.projects.filter(
+        (item) => item.status === "inProgress"
+      ).length,
     },
   });
 });
+
 app.get("/slaves/:slaveId/projects/:projectId", (req, res) => {
   const { slaveId, projectId } = req.params;
   console.log("slaveId", slaveId);
@@ -687,7 +893,131 @@ app.get("/slaves/:slaveId/projects/:projectId", (req, res) => {
     });
   }
 });
-// POST
+
+app.put(`/slaves/:slaveId/projects/:projectId`, (req, res) => {
+  const { slaveId, projectId } = req.params;
+  const { status } = req.body;
+  console.log("request of body", req.body);
+
+  const slave = allSlavesData.find((item) => item.id == slaveId);
+
+  if (slave) {
+    const project = slave.projects.find((project) => project.id == projectId);
+    if (project) {
+      project.status = status;
+
+      res.status(200).send({
+        updatedProject: project,
+      });
+    } else {
+      res.status(404).send({
+        message: `Project with id ${projectId} not found`,
+      });
+    }
+  } else {
+    res.status(404).send({
+      message: `Slave with id ${slaveId} not found`,
+    });
+  }
+});
+
+app.put(`/slaves/:slaveId`, (req, res) => {
+  const { slaveId } = req.params;
+
+  const slave = allSlavesData.find((item) => item.id == slaveId);
+
+  if (slave) {
+    Object.entries(req.body).forEach(([key, value]) => {
+      slave[key] = value;
+    });
+    return res.status(200).send({
+      updatedSlave: slave,
+    });
+  } else {
+    res.status(404).send({
+      message: `Slave with id ${slaveId} not found`,
+    });
+  }
+});
+
+// TICKETS
+app.get("/tickets", (req, res) => {
+  const { page = 1, status, category, companyName, date } = req.query;
+  const limit = 4;
+
+  let filteredTickets = allTickets;
+
+  filteredTickets = filteredTickets.filter((ticket) => {
+    return (
+      (status !== "all" ? ticket.status === status : true) &&
+      (category !== "all" ? ticket.category === category : true) &&
+      (companyName !== "all" ? ticket.companyName === companyName : true) &&
+      (date !== "all" ? ticket.date === date : true)
+    );
+  });
+
+  const resultsCount = filteredTickets.length;
+  const totalPages = Math.ceil(resultsCount / limit);
+  const validPage = Math.max(1, Math.min(Number(page), totalPages));
+
+  const offset = (validPage - 1) * limit;
+  const paginatedResults = filteredTickets.slice(offset, offset + limit);
+
+  res.status(200).send({
+    data: paginatedResults,
+    notFilteredData: allTickets,
+    pagination: {
+      activePage: Number(page),
+      itemsPerPage: limit,
+      totalPages: totalPages,
+      totalItems: resultsCount,
+    },
+  });
+});
+
+app.get("/tickets/:id", (req, res) => {
+  const ticketId = req.params.id;
+  const ticket = allTickets.find((item) => item.id === Number(ticketId));
+  res.status(200).send(ticket);
+});
+
+app.put("/tickets/:id", (req, res) => {
+  const ticketId = req.params.id;
+  const ticketData = req.body;
+  const ticket = allTickets.find((item) => item.id === Number(ticketId));
+  if (ticket) {
+    Object.entries(ticketData).forEach(([key, value]) => {
+      ticket[key] = value;
+    });
+    res.status(200).send({
+      updatedTicket: ticket,
+    });
+  } else {
+    res.status(404).send({
+      message: `Ticket with id ${ticketId} not found`,
+    });
+  }
+});
+
+app.post("/tickets/:id/messages", (req, res) => {
+  const ticketId = req.params.id;
+  const { messageData } = req.body;
+  // questa chiamata deve aggiungere una nuova riga alla tabella tickets_messages associando il messaggio al ticket con id ticketId
+  // post o put?
+  const ticket = allTickets.find((item) => item.id === Number(ticketId));
+  if (ticket) {
+    ticket.messages.push(messageData);
+    res.status(200).send({
+      updatedTicket: ticket,
+    });
+  } else {
+    res.status(404).send({
+      message: `Ticket with id ${ticketId} not found`,
+    });
+  }
+});
+
+// LOGIN/REGISTER
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
   console.log(req.body);
@@ -765,69 +1095,6 @@ app.post("/register", (req, res) => {
 
   //   return password;
   // };
-});
-
-// PUT
-app.put(`/user/:userId`, (req, res) => {
-  const userId = req.params.userId;
-  res.status(200).send({
-    userId: userId,
-    designId: 2,
-    name: "Mario",
-    lastName: "Rossi",
-    companyName: "Rossi srl",
-    email: "test@test.com",
-    address: "Via Roma 1",
-    city: "Roma",
-    zipcode: "00100",
-    vatNumber: "12345678901",
-    phone: "3334445555",
-  });
-});
-
-app.put(`/slaves/:slaveId/projects/:projectId`, (req, res) => {
-  const { slaveId, projectId } = req.params;
-  const { status } = req.body;
-  console.log("request of body", req.body);
-
-  const slave = allSlavesData.find((item) => item.id == slaveId);
-
-  if (slave) {
-    const project = slave.projects.find((project) => project.id == projectId);
-    if (project) {
-      project.status = status;
-
-      res.status(200).send({
-        updatedProject: project,
-      });
-    } else {
-      res.status(404).send({
-        message: `Project with id ${projectId} not found`,
-      });
-    }
-  } else {
-    res.status(404).send({
-      message: `Slave with id ${slaveId} not found`,
-    });
-  }
-});
-app.put(`/slaves/:slaveId`, (req, res) => {
-  const { slaveId } = req.params;
-
-  const slave = allSlavesData.find((item) => item.id == slaveId);
-
-  if (slave) {
-    Object.entries(req.body).forEach(([key, value]) => {
-      slave[key] = value;
-    });
-    return res.status(200).send({
-      updatedSlave: slave,
-    });
-  } else {
-    res.status(404).send({
-      message: `Slave with id ${slaveId} not found`,
-    });
-  }
 });
 
 app.listen(port, () => {
