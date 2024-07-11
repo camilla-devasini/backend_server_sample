@@ -646,15 +646,16 @@ app.get("/", (req, res) => {
 });
 const userData = {
   userId: 1,
-  role: "admin",
+  role: "user",
 };
-// USER
+// COMMON ROUTES
+
 app.get(`/user/:userId/settings`, (req, res) => {
   const userId = req.params.userId;
   res.status(200).send({
     userId: userId,
     designId: 2,
-    role: "admin",
+    role: "user",
   });
 });
 
@@ -663,7 +664,7 @@ app.get(`/user/:userId`, (req, res) => {
   res.status(200).send({
     userId: userId,
     designId: 2,
-    role: "admin",
+    role: "user",
     firstName: "Mario",
     lastName: "Rossi",
     companyName: "Rossi srl",
@@ -750,273 +751,6 @@ app.get("/faq", (req, res) => {
   });
 });
 
-// SLAVES
-app.get("/slaves", (req, res) => {
-  const { page = 1, search, statusFilter } = req.query;
-  const limit = 4; // number of items per page
-
-  let filteredData = allSlavesData;
-
-  if (search) {
-    filteredData = allSlavesData.filter((item) => {
-      const lowerCaseSearch = search.toLowerCase();
-      return (
-        item.firstName.toLowerCase().includes(lowerCaseSearch) ||
-        item.lastName.toLowerCase().includes(lowerCaseSearch) ||
-        item.email.toLowerCase().includes(lowerCaseSearch) ||
-        item.phone.toLowerCase().includes(lowerCaseSearch)
-      );
-    });
-  }
-  if (statusFilter) {
-    statusFilter === "all"
-      ? filteredData
-      : (filteredData = filteredData.filter(
-          (item) => item.status === statusFilter
-        ));
-  }
-
-  const resultsCount = filteredData.length;
-  const totalPages = Math.ceil(resultsCount / limit);
-  const offset = (Number(page) - 1) * limit;
-  const paginatedResults = filteredData.slice(offset, offset + limit);
-
-  res.status(200).send({
-    data: paginatedResults,
-    pagination: {
-      activePage: Number(page),
-      itemsPerPage: limit,
-      totalPages: totalPages,
-      totalItems: resultsCount,
-      totalActiveUsers: allSlavesData.filter((item) => item.status === "active")
-        .length,
-      totalPendingUsers: allSlavesData.filter(
-        (item) => item.status === "pending"
-      ).length,
-      totalBannedUsers: allSlavesData.filter((item) => item.status === "banned")
-        .length,
-    },
-  });
-});
-
-app.get("/slaves/:slaveId", (req, res) => {
-  const slaveId = req.params.slaveId;
-  const slave = allSlavesData.find((item) => item.id === Number(slaveId));
-  res.status(200).send(slave);
-  // selezione dei dati: escludo: id, projects, password,
-  // se lo status è pending, devo fare anche una chiamata alla tabella slaves_temporary con l'id dello slave per ottenere la password temporanea
-  // per il primo accesso
-});
-
-app.get(`/slaves/:slaveId/projects`, (req, res) => {
-  const slaveId = req.params.slaveId;
-  const { page = 1, status, brand, model, date, extraOptions } = req.query;
-  const limit = 4;
-
-  // Find the slave by id
-  const slave = allSlavesData.find((slave) => slave.id === Number(slaveId));
-
-  if (!slave) {
-    return res.status(404).send({
-      message: `Slave with id ${slaveId} not found`,
-    });
-  }
-
-  let filteredProjects = slave.projects;
-
-  filteredProjects = filteredProjects.filter((project) => {
-    return (
-      (status !== "all" ? project.status === status : true) &&
-      (brand !== "all" ? project.brand === brand : true) &&
-      (model !== "all" ? project.model === model : true) &&
-      (date !== "all" ? project.date === date : true) &&
-      (extraOptions !== "all" ? project.extraOptions === extraOptions : true)
-    );
-  });
-
-  const resultsCount = filteredProjects.length;
-  const totalPages = Math.ceil(resultsCount / limit);
-  const validPage = Math.max(1, Math.min(Number(page), totalPages));
-
-  const offset = (validPage - 1) * limit;
-  const paginatedResults = filteredProjects.slice(offset, offset + limit);
-
-  res.status(200).send({
-    notFilteredData: slave.projects,
-    data: paginatedResults,
-    pagination: {
-      activePage: Number(page),
-      itemsPerPage: limit,
-      totalPages: totalPages,
-      totalItems: resultsCount,
-      totalCompletedProjects: slave.projects.filter(
-        (item) => item.status === "completed"
-      ).length,
-      totalPendingProjects: slave.projects.filter(
-        (item) => item.status === "pending"
-      ).length,
-      totalRefundedProjects: slave.projects.filter(
-        (item) => item.status === "refunded"
-      ).length,
-      totalFailedProjects: slave.projects.filter(
-        (item) => item.status === "failed"
-      ).length,
-      totalNewProjects: slave.projects.filter((item) => item.status === "new")
-        .length,
-      totalInProgressProjects: slave.projects.filter(
-        (item) => item.status === "inProgress"
-      ).length,
-    },
-  });
-});
-
-app.get("/slaves/:slaveId/projects/:projectId", (req, res) => {
-  const { slaveId, projectId } = req.params;
-  console.log("slaveId", slaveId);
-  console.log("projectId", projectId);
-  const slave = allSlavesData.find((slave) => slave.id === Number(slaveId));
-  if (slave) {
-    console.log("slave", slave);
-    const project = slave.projects.find(
-      (project) => project.id === Number(projectId)
-    );
-    if (project) {
-      return res.status(200).send(project);
-    } else {
-      return res.status(404).send({
-        message: `Project with id ${projectId} not found`,
-      });
-    }
-  } else {
-    return res.status(404).send({
-      message: `Slave with id ${slaveId} not found`,
-    });
-  }
-});
-
-app.put(`/slaves/:slaveId/projects/:projectId`, (req, res) => {
-  const { slaveId, projectId } = req.params;
-  const { status } = req.body;
-  console.log("request of body", req.body);
-
-  const slave = allSlavesData.find((item) => item.id == slaveId);
-
-  if (slave) {
-    const project = slave.projects.find((project) => project.id == projectId);
-    if (project) {
-      project.status = status;
-
-      res.status(200).send({
-        updatedProject: project,
-      });
-    } else {
-      res.status(404).send({
-        message: `Project with id ${projectId} not found`,
-      });
-    }
-  } else {
-    res.status(404).send({
-      message: `Slave with id ${slaveId} not found`,
-    });
-  }
-});
-
-app.put(`/slaves/:slaveId`, (req, res) => {
-  const { slaveId } = req.params;
-
-  const slave = allSlavesData.find((item) => item.id == slaveId);
-
-  if (slave) {
-    Object.entries(req.body).forEach(([key, value]) => {
-      slave[key] = value;
-    });
-    return res.status(200).send({
-      updatedSlave: slave,
-    });
-  } else {
-    res.status(404).send({
-      message: `Slave with id ${slaveId} not found`,
-    });
-  }
-});
-
-// TICKETS
-app.get("/tickets", (req, res) => {
-  const { page = 1, status, category, companyName, date } = req.query;
-  const limit = 4;
-
-  let filteredTickets = allTickets;
-
-  filteredTickets = filteredTickets.filter((ticket) => {
-    return (
-      (status !== "all" ? ticket.status === status : true) &&
-      (category !== "all" ? ticket.category === category : true) &&
-      (companyName !== "all" ? ticket.companyName === companyName : true) &&
-      (date !== "all" ? ticket.date === date : true)
-    );
-  });
-
-  const resultsCount = filteredTickets.length;
-  const totalPages = Math.ceil(resultsCount / limit);
-  const validPage = Math.max(1, Math.min(Number(page), totalPages));
-
-  const offset = (validPage - 1) * limit;
-  const paginatedResults = filteredTickets.slice(offset, offset + limit);
-
-  res.status(200).send({
-    data: paginatedResults,
-    notFilteredData: allTickets,
-    pagination: {
-      activePage: Number(page),
-      itemsPerPage: limit,
-      totalPages: totalPages,
-      totalItems: resultsCount,
-    },
-  });
-});
-
-app.get("/tickets/:id", (req, res) => {
-  const ticketId = req.params.id;
-  const ticket = allTickets.find((item) => item.id === Number(ticketId));
-  res.status(200).send(ticket);
-});
-
-app.put("/tickets/:id", (req, res) => {
-  const ticketId = req.params.id;
-  const ticketData = req.body;
-  const ticket = allTickets.find((item) => item.id === Number(ticketId));
-  if (ticket) {
-    Object.entries(ticketData).forEach(([key, value]) => {
-      ticket[key] = value;
-    });
-    res.status(200).send({
-      updatedTicket: ticket,
-    });
-  } else {
-    res.status(404).send({
-      message: `Ticket with id ${ticketId} not found`,
-    });
-  }
-});
-
-app.post("/tickets/:id/messages", (req, res) => {
-  const ticketId = req.params.id;
-  const { messageData } = req.body;
-  // questa chiamata deve aggiungere una nuova riga alla tabella tickets_messages associando il messaggio al ticket con id ticketId
-  // post o put?
-  const ticket = allTickets.find((item) => item.id === Number(ticketId));
-  if (ticket) {
-    ticket.messages.push(messageData);
-    res.status(200).send({
-      updatedTicket: ticket,
-    });
-  } else {
-    res.status(404).send({
-      message: `Ticket with id ${ticketId} not found`,
-    });
-  }
-});
-
 // LOGIN/REGISTER
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
@@ -1096,6 +830,274 @@ app.post("/register", (req, res) => {
   //   return password;
   // };
 });
+
+// ADMIN ROUTES
+// Admin routes - Slaves
+app.get("/backoffice/slaves", (req, res) => {
+  const { page = 1, search, statusFilter } = req.query;
+  const limit = 4; // number of items per page
+
+  let filteredData = allSlavesData;
+
+  if (search) {
+    filteredData = allSlavesData.filter((item) => {
+      const lowerCaseSearch = search.toLowerCase();
+      return (
+        item.firstName.toLowerCase().includes(lowerCaseSearch) ||
+        item.lastName.toLowerCase().includes(lowerCaseSearch) ||
+        item.email.toLowerCase().includes(lowerCaseSearch) ||
+        item.phone.toLowerCase().includes(lowerCaseSearch)
+      );
+    });
+  }
+  if (statusFilter) {
+    statusFilter === "all"
+      ? filteredData
+      : (filteredData = filteredData.filter(
+          (item) => item.status === statusFilter
+        ));
+  }
+
+  const resultsCount = filteredData.length;
+  const totalPages = Math.ceil(resultsCount / limit);
+  const offset = (Number(page) - 1) * limit;
+  const paginatedResults = filteredData.slice(offset, offset + limit);
+
+  res.status(200).send({
+    data: paginatedResults,
+    pagination: {
+      activePage: Number(page),
+      itemsPerPage: limit,
+      totalPages: totalPages,
+      totalItems: resultsCount,
+      totalActiveUsers: allSlavesData.filter((item) => item.status === "active")
+        .length,
+      totalPendingUsers: allSlavesData.filter(
+        (item) => item.status === "pending"
+      ).length,
+      totalBannedUsers: allSlavesData.filter((item) => item.status === "banned")
+        .length,
+    },
+  });
+});
+
+app.get("/backoffice/slaves/:slaveId", (req, res) => {
+  const slaveId = req.params.slaveId;
+  const slave = allSlavesData.find((item) => item.id === Number(slaveId));
+  res.status(200).send(slave);
+  // selezione dei dati: escludo: id, projects, password,
+  // se lo status è pending, devo fare anche una chiamata alla tabella slaves_temporary con l'id dello slave per ottenere la password temporanea
+  // per il primo accesso
+});
+
+app.get(`/backoffice/slaves/:slaveId/projects`, (req, res) => {
+  const slaveId = req.params.slaveId;
+  const { page = 1, status, brand, model, date, extraOptions } = req.query;
+  const limit = 4;
+
+  // Find the slave by id
+  const slave = allSlavesData.find((slave) => slave.id === Number(slaveId));
+
+  if (!slave) {
+    return res.status(404).send({
+      message: `Slave with id ${slaveId} not found`,
+    });
+  }
+
+  let filteredProjects = slave.projects;
+
+  filteredProjects = filteredProjects.filter((project) => {
+    return (
+      (status !== "all" ? project.status === status : true) &&
+      (brand !== "all" ? project.brand === brand : true) &&
+      (model !== "all" ? project.model === model : true) &&
+      (date !== "all" ? project.date === date : true) &&
+      (extraOptions !== "all" ? project.extraOptions === extraOptions : true)
+    );
+  });
+
+  const resultsCount = filteredProjects.length;
+  const totalPages = Math.ceil(resultsCount / limit);
+  const validPage = Math.max(1, Math.min(Number(page), totalPages));
+
+  const offset = (validPage - 1) * limit;
+  const paginatedResults = filteredProjects.slice(offset, offset + limit);
+
+  res.status(200).send({
+    notFilteredData: slave.projects,
+    data: paginatedResults,
+    pagination: {
+      activePage: Number(page),
+      itemsPerPage: limit,
+      totalPages: totalPages,
+      totalItems: resultsCount,
+      totalCompletedProjects: slave.projects.filter(
+        (item) => item.status === "completed"
+      ).length,
+      totalPendingProjects: slave.projects.filter(
+        (item) => item.status === "pending"
+      ).length,
+      totalRefundedProjects: slave.projects.filter(
+        (item) => item.status === "refunded"
+      ).length,
+      totalFailedProjects: slave.projects.filter(
+        (item) => item.status === "failed"
+      ).length,
+      totalNewProjects: slave.projects.filter((item) => item.status === "new")
+        .length,
+      totalInProgressProjects: slave.projects.filter(
+        (item) => item.status === "inProgress"
+      ).length,
+    },
+  });
+});
+
+app.get("/backoffice/slaves/:slaveId/projects/:projectId", (req, res) => {
+  const { slaveId, projectId } = req.params;
+  const slave = allSlavesData.find((slave) => slave.id === Number(slaveId));
+  if (slave) {
+    console.log("slave", slave);
+    const project = slave.projects.find(
+      (project) => project.id === Number(projectId)
+    );
+    if (project) {
+      return res.status(200).send(project);
+    } else {
+      return res.status(404).send({
+        message: `Project with id ${projectId} not found`,
+      });
+    }
+  } else {
+    return res.status(404).send({
+      message: `Slave with id ${slaveId} not found`,
+    });
+  }
+});
+
+app.put(`/backoffice/slaves/:slaveId/projects/:projectId`, (req, res) => {
+  const { slaveId, projectId } = req.params;
+  const { status } = req.body;
+  console.log("request of body", req.body);
+
+  const slave = allSlavesData.find((item) => item.id == slaveId);
+
+  if (slave) {
+    const project = slave.projects.find((project) => project.id == projectId);
+    if (project) {
+      project.status = status;
+
+      res.status(200).send({
+        updatedProject: project,
+      });
+    } else {
+      res.status(404).send({
+        message: `Project with id ${projectId} not found`,
+      });
+    }
+  } else {
+    res.status(404).send({
+      message: `Slave with id ${slaveId} not found`,
+    });
+  }
+});
+
+app.put(`/backoffice/slaves/:slaveId`, (req, res) => {
+  const { slaveId } = req.params;
+
+  const slave = allSlavesData.find((item) => item.id == slaveId);
+
+  if (slave) {
+    Object.entries(req.body).forEach(([key, value]) => {
+      slave[key] = value;
+    });
+    return res.status(200).send({
+      updatedSlave: slave,
+    });
+  } else {
+    res.status(404).send({
+      message: `Slave with id ${slaveId} not found`,
+    });
+  }
+});
+
+// Admin routes - Tickets
+app.get("/backoffice/tickets", (req, res) => {
+  const { page = 1, status, category, companyName, date } = req.query;
+  const limit = 4;
+
+  let filteredTickets = allTickets;
+
+  filteredTickets = filteredTickets.filter((ticket) => {
+    return (
+      (status !== "all" ? ticket.status === status : true) &&
+      (category !== "all" ? ticket.category === category : true) &&
+      (companyName !== "all" ? ticket.companyName === companyName : true) &&
+      (date !== "all" ? ticket.date === date : true)
+    );
+  });
+
+  const resultsCount = filteredTickets.length;
+  const totalPages = Math.ceil(resultsCount / limit);
+  const validPage = Math.max(1, Math.min(Number(page), totalPages));
+
+  const offset = (validPage - 1) * limit;
+  const paginatedResults = filteredTickets.slice(offset, offset + limit);
+
+  res.status(200).send({
+    data: paginatedResults,
+    notFilteredData: allTickets,
+    pagination: {
+      activePage: Number(page),
+      itemsPerPage: limit,
+      totalPages: totalPages,
+      totalItems: resultsCount,
+    },
+  });
+});
+
+app.get("/backoffice/tickets/:id", (req, res) => {
+  const ticketId = req.params.id;
+  const ticket = allTickets.find((item) => item.id === Number(ticketId));
+  res.status(200).send(ticket);
+});
+
+app.put("/backoffice/tickets/:id", (req, res) => {
+  const ticketId = req.params.id;
+  const ticketData = req.body;
+  const ticket = allTickets.find((item) => item.id === Number(ticketId));
+  if (ticket) {
+    Object.entries(ticketData).forEach(([key, value]) => {
+      ticket[key] = value;
+    });
+    res.status(200).send({
+      updatedTicket: ticket,
+    });
+  } else {
+    res.status(404).send({
+      message: `Ticket with id ${ticketId} not found`,
+    });
+  }
+});
+
+app.post("/backoffice/tickets/:id/messages", (req, res) => {
+  const ticketId = req.params.id;
+  const { messageData } = req.body;
+  // questa chiamata deve aggiungere una nuova riga alla tabella tickets_messages associando il messaggio al ticket con id ticketId
+  // post o put?
+  const ticket = allTickets.find((item) => item.id === Number(ticketId));
+  if (ticket) {
+    ticket.messages.push(messageData);
+    res.status(200).send({
+      updatedTicket: ticket,
+    });
+  } else {
+    res.status(404).send({
+      message: `Ticket with id ${ticketId} not found`,
+    });
+  }
+});
+
+// USER ROUTES
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
