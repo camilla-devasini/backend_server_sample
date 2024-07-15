@@ -639,6 +639,46 @@ const allTickets = [
   },
 ];
 
+const allSolutions = [
+  { id: 1, name: "DPF", price: 100 },
+  { id: 2, name: "ADV", price: 150 },
+  { id: 3, name: "EGR", price: 200 },
+  { id: 4, name: "ADBLUE", price: 250 },
+  { id: 5, name: "SCR", price: 300 },
+  { id: 6, name: "FULL EMISSION", price: 100 },
+  { id: 7, name: "MAF", price: 150 },
+  { id: 8, name: "TVA", price: 200 },
+  { id: 9, name: "LAMBDA", price: 250 },
+  { id: 10, name: "O2", price: 300 },
+  { id: 11, name: "FLAPS", price: 100 },
+  { id: 12, name: "SWIRL", price: 150 },
+  { id: 13, name: "NOX", price: 200 },
+  { id: 14, name: "SPEED LIMIT", price: 250 },
+  { id: 15, name: "VMAX", price: 300 },
+  { id: 16, name: "GPF", price: 100 },
+  { id: 17, name: "OPF", price: 150 },
+  { id: 18, name: "IAT", price: 200 },
+  { id: 19, name: "HOT START", price: 250 },
+  { id: 20, name: "WATER PUMP", price: 300 },
+  { id: 21, name: "CATALYST", price: 100 },
+  { id: 22, name: "SPORT DISPLAY CALIBRATION", price: 150 },
+  { id: 23, name: "EXHAUST FLAP", price: 200 },
+  { id: 24, name: "EVAP", price: 250 },
+  { id: 25, name: "TORQUE MONITORING", price: 300 },
+  { id: 26, name: "START STOP", price: 100 },
+  { id: 27, name: "READINESS CALIBRATION", price: 150 },
+  { id: 28, name: "AGS", price: 200 },
+  { id: 29, name: "COLD START SOUND", price: 250 },
+  { id: 30, name: "REV LIMITER", price: 300 },
+  { id: 31, name: "OIL PRESSURE", price: 100 },
+  { id: 32, name: "TPROT", price: 150 },
+  { id: 33, name: "KICKDOWN", price: 200 },
+  { id: 34, name: "ACT", price: 250 },
+  { id: 35, name: "STAGE 1", price: 300 },
+  { id: 36, name: "STAGE 2", price: 100 },
+  { id: 37, name: "STAGE 3", price: 150 },
+];
+
 app.use(cors());
 app.use(bodyParser.json());
 app.get("/", (req, res) => {
@@ -674,6 +714,7 @@ app.get(`/user/:userId`, (req, res) => {
     zipcode: "00100",
     vatNumber: "12345678901",
     phone: "3334445555",
+    credits: 1000,
   });
 });
 
@@ -1095,6 +1136,11 @@ app.post("/backoffice/tickets/:id/messages", (req, res) => {
       message: `Ticket with id ${ticketId} not found`,
     });
   }
+});
+
+// Admin routes - Service solutions prices
+app.get("/backoffice/solutions", (req, res) => {
+  res.status(200).send(allSolutions);
 });
 
 // USER ROUTES
