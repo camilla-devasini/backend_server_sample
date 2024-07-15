@@ -686,7 +686,7 @@ app.get("/", (req, res) => {
 });
 const userData = {
   userId: 1,
-  role: "user",
+  role: "admin",
 };
 // COMMON ROUTES
 
@@ -695,7 +695,7 @@ app.get(`/user/:userId/settings`, (req, res) => {
   res.status(200).send({
     userId: userId,
     designId: 2,
-    role: "user",
+    role: "admin",
   });
 });
 
@@ -704,7 +704,7 @@ app.get(`/user/:userId`, (req, res) => {
   res.status(200).send({
     userId: userId,
     designId: 2,
-    role: "user",
+    role: "admin",
     firstName: "Mario",
     lastName: "Rossi",
     companyName: "Rossi srl",
