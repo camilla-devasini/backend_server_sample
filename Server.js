@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 app.use(cookieParser());
@@ -9,6 +10,7 @@ let cors = require("cors");
 
 const port = 3001;
 
+// entità che simulano i dati del database
 const allSlavesData = [
   {
     id: 1,
@@ -679,6 +681,12 @@ const allSolutions = [
   { id: 37, name: "STAGE 3", price: 150 },
 ];
 
+const carts = [];
+
+const orders = [];
+
+const order_items = [];
+
 app.use(cors());
 app.use(bodyParser.json());
 app.get("/", (req, res) => {
@@ -686,8 +694,9 @@ app.get("/", (req, res) => {
 });
 const userData = {
   userId: 1,
-  role: "admin",
+  role: "user",
 };
+
 // COMMON ROUTES
 
 app.get(`/user/:userId/settings`, (req, res) => {
@@ -695,7 +704,7 @@ app.get(`/user/:userId/settings`, (req, res) => {
   res.status(200).send({
     userId: userId,
     designId: 2,
-    role: "admin",
+    role: "user",
   });
 });
 
@@ -704,7 +713,7 @@ app.get(`/user/:userId`, (req, res) => {
   res.status(200).send({
     userId: userId,
     designId: 2,
-    role: "admin",
+    role: "user",
     firstName: "Mario",
     lastName: "Rossi",
     companyName: "Rossi srl",
@@ -1144,6 +1153,92 @@ app.get("/backoffice/solutions", (req, res) => {
 });
 
 // USER ROUTES
+
+// user routes - cart
+app.post("/frontoffice/cart/initialize/:userId", async (req, res) => {
+  const cartId = uuidv4();
+  const { userId } = req.params.userId;
+
+  // in una tabella cart creo una nuova riga con cartId, userId, items, vehicleInfo, createdAt, lastModified
+  // questa chiamata restituisce il cartId inizializzando così il carrello
+  const newCart = {
+    id: cartId,
+    userId: userId,
+    items: [],
+    vehicleInfo: null,
+    createdAt: new Date().toISOString(),
+    lastModified: new Date().toISOString(),
+  };
+
+  carts.push(newCart);
+  console.log("carts", carts);
+
+  res.status(200).send(newCart);
+});
+
+app.get("/frontoffice/cart/:cartId", (req, res) => {
+  const cart = carts.find((item) => item.id === Number(req.params.cartId));
+  if (cart) {
+    res.status(200).send(cart);
+  } else {
+    res.status(404).send({
+      message: `Cart with id ${req.params.cartId} not found`,
+    });
+  }
+});
+
+app.post("/frontoffice/cart/:cartId/add", (req, res) => {
+  const { cartId } = req.params;
+  const orderData = req.body;
+  console.log("orderData", orderData);
+  const cart = carts.find((item) => item.id === cartId);
+
+  if (cart) {
+    cart.items.push(orderData?.items);
+    cart.vehicleInfo = orderData?.vehicleInfo ?? null;
+    cart.lastModified = new Date().toISOString();
+    res.status(200).send({
+      updatedCart: cart,
+    });
+  } else {
+    res.status(404).send({
+      message: `Cart with id ${cartId} not found`,
+    });
+  }
+});
+
+// user routes - orders
+app.post("/frontoffice/cart/:cartId/order", (req, res) => {
+  const { cartId } = req.params;
+  const cart = carts.find((item) => item.id === cartId);
+  if (cart) {
+    // creo una nuova riga nella tabella orders con i dati del carrello
+    const order = {
+      id: 1233333,
+      userId: cart.userId,
+      cartId: cart.id,
+    };
+    orders.push(order);
+
+    // creo una nuova riga nella tabella order_items per ogni item nel carrello
+    cart.items.map((item) => {
+      order_items.push({
+        id: 9,
+        orderId: order.id,
+        serviceId: item.id,
+        serviceName: item.name,
+        price: item.credits,
+      });
+    });
+    res.status(200).send({
+      order,
+    });
+  } else {
+    res.status(404).send({
+      message: `Cart with id ${cartId} not found`,
+    });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
