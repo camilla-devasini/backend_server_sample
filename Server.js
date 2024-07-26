@@ -679,6 +679,51 @@ const allSolutions = [
   { id: 35, name: "STAGE 1", price: 300 },
   { id: 36, name: "STAGE 2", price: 100 },
   { id: 37, name: "STAGE 3", price: 150 },
+  { id: 38, name: "DTC", price: 250 },
+];
+
+// fasce di sconto per i crediti
+const pricingCredits = [
+  {
+    id: 1,
+    minTier: 50,
+    maxTier: 450,
+    unitPrice: 0.2,
+    discountPercentage: 0,
+    isSpecial: false,
+  },
+  {
+    id: 2,
+    minTier: 500,
+    maxTier: 500,
+    unitPrice: 0.2,
+    discountPercentage: 12.0,
+    isSpecial: true,
+  },
+  {
+    id: 3,
+    minTier: 550,
+    maxTier: 750,
+    unitPrice: 0.2,
+    discountPercentage: 10.0,
+    isSpecial: false,
+  },
+  {
+    id: 4,
+    minTier: 800,
+    maxTier: 950,
+    unitPrice: 0.2,
+    discountPercentage: 15.0,
+    isSpecial: false,
+  },
+  {
+    id: 5,
+    minTier: 1000,
+    maxTier: 1000,
+    unitPrice: 0.2,
+    discountPercentage: 20.0,
+    isSpecial: true,
+  },
 ];
 
 const carts = [];
@@ -1236,6 +1281,36 @@ app.post("/frontoffice/cart/:cartId/order", (req, res) => {
   } else {
     res.status(404).send({
       message: `Cart with id ${cartId} not found`,
+    });
+  }
+});
+
+// user order credits
+
+app.post("/frontoffice/orders/:userId/create", (req, res) => {
+  const { userId } = req.params;
+  const orderData = req.body;
+  console.log("orderData", orderData);
+
+  orders.push(orderData);
+  res.status(200).send({
+    ...orderData,
+    orderId: 123444,
+  });
+});
+
+app.put("/frontoffice/orders/:orderId/complete", (req, res) => {
+  const { orderId } = req.params;
+  const { orderData } = req.body;
+  const order = orders.find((item) => item.id === Number(orderId));
+  if (order) {
+    order = orderData;
+    res.status(200).send({
+      updatedOrder: order,
+    });
+  } else {
+    res.status(404).send({
+      message: `Order with id ${orderId} not found`,
     });
   }
 });
