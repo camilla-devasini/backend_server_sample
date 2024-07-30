@@ -726,11 +726,9 @@ const pricingCredits = [
   },
 ];
 
-const carts = [];
+const userProjects = [];
 
 const orders = [];
-
-const order_items = [];
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -740,6 +738,18 @@ app.get("/", (req, res) => {
 const userData = {
   userId: 1,
   role: "user",
+  designId: 2,
+  role: "user",
+  firstName: "Mario",
+  lastName: "Rossi",
+  companyName: "Rossi srl",
+  email: "test@test.com",
+  address: "Via Roma 1",
+  city: "Roma",
+  zipcode: "00100",
+  vatNumber: "12345678901",
+  phone: "3334445555",
+  credits: 1000,
 };
 
 // COMMON ROUTES
@@ -749,43 +759,25 @@ app.get(`/user/:userId/settings`, (req, res) => {
   res.status(200).send({
     userId: userId,
     designId: 2,
-    role: "user",
   });
 });
 
 app.get(`/user/:userId`, (req, res) => {
   const userId = req.params.userId;
   res.status(200).send({
+    ...userData,
     userId: userId,
-    designId: 2,
-    role: "user",
-    firstName: "Mario",
-    lastName: "Rossi",
-    companyName: "Rossi srl",
-    email: "test@test.com",
-    address: "Via Roma 1",
-    city: "Roma",
-    zipcode: "00100",
-    vatNumber: "12345678901",
-    phone: "3334445555",
-    credits: 1000,
   });
 });
 
 app.put(`/user/:userId`, (req, res) => {
   const userId = req.params.userId;
+  const userInfo = req.body;
+  console.log("userInfo", userInfo);
   res.status(200).send({
+    ...userData,
     userId: userId,
-    designId: 2,
-    name: "Mario",
-    lastName: "Rossi",
-    companyName: "Rossi srl",
-    email: "test@test.com",
-    address: "Via Roma 1",
-    city: "Roma",
-    zipcode: "00100",
-    vatNumber: "12345678901",
-    phone: "3334445555",
+    ...userInfo,
   });
 });
 
@@ -1199,115 +1191,264 @@ app.get("/backoffice/solutions", (req, res) => {
 
 // USER ROUTES
 
-// user routes - cart
-app.post("/frontoffice/cart/initialize/:userId", async (req, res) => {
-  const cartId = uuidv4();
-  const { userId } = req.params.userId;
+// user routes - project
+// creating a new project - valori per i select
 
-  // in una tabella cart creo una nuova riga con cartId, userId, items, vehicleInfo, createdAt, lastModified
-  // questa chiamata restituisce il cartId inizializzando così il carrello
-  const newCart = {
-    id: cartId,
-    userId: userId,
-    items: [],
-    vehicleInfo: null,
-    createdAt: new Date().toISOString(),
+const types = [
+  { id: 1, name: "Autovettura" },
+  { id: 2, name: "Moto" },
+  { id: 3, name: "Camion" },
+];
+
+const brands = [
+  { id: 1, typeId: [1, 2, 3], name: "BMW" },
+  { id: 2, typeId: [1, 2, 3], name: "Audi" },
+  { id: 3, typeId: [1, 2, 3], name: "Mercedes" },
+];
+
+const models = [
+  { id: 1, brandId: 1, name: "Serie 1" },
+  { id: 2, brandId: 1, name: "Serie 2" },
+  { id: 3, brandId: 1, name: "R1200GS" },
+  { id: 4, brandId: 2, name: "A3" },
+  { id: 5, brandId: 2, name: "A4" },
+];
+const engines = [
+  { id: 1, modelId: 1, name: "118i" },
+  { id: 2, modelId: 1, name: "120d" },
+  { id: 3, modelId: 2, name: "220i" },
+  { id: 4, modelId: 3, name: "1.4 TFSI" },
+  { id: 5, modelId: 3, name: "1.4 TFSI" },
+  { id: 6, modelId: 4, name: "3.0 TDI" },
+  { id: 7, modelId: 5, name: "3.0 TDI" },
+];
+
+const gearboxes = [
+  { id: 1, engineId: 1, name: "Manual" },
+  { id: 2, engineId: 1, name: "Automatic" },
+  { id: 3, engineId: 2, name: "Manual" },
+  { id: 4, engineId: 2, name: "Automatic" },
+  { id: 5, engineId: 3, name: "Manual" },
+  { id: 6, engineId: 3, name: "Automatic" },
+  { id: 7, engineId: 4, name: "Manual" },
+  { id: 8, engineId: 4, name: "Automatic" },
+  { id: 9, engineId: 5, name: "Manual" },
+  { id: 10, engineId: 5, name: "Automatic" },
+  { id: 11, engineId: 6, name: "Manual" },
+  { id: 12, engineId: 6, name: "Automatic" },
+  { id: 13, engineId: 7, name: "Manual" },
+  { id: 14, engineId: 7, name: "Automatic" },
+];
+
+const generations = [
+  { id: 1, gearboxe1: 1, name: "F20" },
+  { id: 2, gearboxe1: 1, name: "F40" },
+  { id: 3, gearboxe1: 2, name: "F22" },
+  { id: 4, gearboxe1: 4, name: "8V" },
+  { id: 5, gearboxe1: 4, name: "8Y" },
+  { id: 6, gearboxe1: 5, name: "B9" },
+  { id: 7, gearboxe1: 6, name: "B9" },
+  { id: 8, gearboxe1: 7, name: "B8" },
+  { id: 9, gearboxe1: 8, name: "B9" },
+  { id: 10, gearboxe1: 9, name: "B9" },
+  { id: 11, gearboxe1: 10, name: "B9" },
+  { id: 12, gearboxe1: 11, name: "B8" },
+  { id: 13, gearboxe1: 12, name: "B9" },
+  { id: 14, gearboxe1: 13, name: "B9" },
+  { id: 15, gearboxe1: 14, name: "B9" },
+  { id: 16, gearboxe1: 15, name: "B9" },
+  { id: 17, gearboxe1: 16, name: "B9" },
+  { id: 18, gearboxe1: 17, name: "B9" },
+  { id: 19, gearboxe1: 18, name: "B9" },
+  { id: 20, gearboxe1: 19, name: "B9" },
+  { id: 21, gearboxe1: 20, name: "B9" },
+  { id: 22, gearboxe1: 21, name: "B9" },
+  { id: 23, gearboxe1: 22, name: "B9" },
+  { id: 24, gearboxe1: 23, name: "B9" },
+  { id: 25, gearboxe1: 24, name: "B9" },
+  { id: 26, gearboxe1: 25, name: "B9" },
+  { id: 27, gearboxe1: 26, name: "B9" },
+  { id: 28, gearboxe1: 27, name: "B9" },
+  { id: 29, gearboxe1: 28, name: "B9" },
+  { id: 30, gearboxe1: 29, name: "B9" },
+  { id: 31, gearboxe1: 30, name: "B9" },
+  { id: 32, gearboxe1: 31, name: "B9" },
+  { id: 33, gearboxe1: 32, name: "B9" },
+];
+
+const years = [
+  { id: 1, generationId: 1, name: "2011" },
+  { id: 2, generationId: 1, name: "2012" },
+  { id: 3, generationId: 2, name: "2019" },
+  { id: 4, generationId: 2, name: "2020" },
+  { id: 5, generationId: 3, name: "2014" },
+  { id: 6, generationId: 3, name: "2015" },
+  { id: 7, generationId: 4, name: "2016" },
+  { id: 8, generationId: 4, name: "2017" },
+  { id: 9, generationId: 5, name: "2018" },
+  { id: 10, generationId: 5, name: "2019" },
+  { id: 11, generationId: 6, name: "2020" },
+  { id: 12, generationId: 6, name: "2021" },
+  { id: 13, generationId: 7, name: "2014" },
+  { id: 14, generationId: 7, name: "2015" },
+  { id: 15, generationId: 8, name: "2016" },
+  { id: 16, generationId: 8, name: "2017" },
+  { id: 17, generationId: 9, name: "2018" },
+  { id: 18, generationId: 9, name: "2019" },
+  { id: 19, generationId: 10, name: "2020" },
+  { id: 20, generationId: 10, name: "2021" },
+  { id: 21, generationId: 11, name: "2014" },
+  { id: 22, generationId: 11, name: "2015" },
+  { id: 23, generationId: 12, name: "2016" },
+  { id: 24, generationId: 12, name: "2017" },
+  { id: 25, generationId: 13, name: "2018" },
+  { id: 26, generationId: 13, name: "2019" },
+  { id: 27, generationId: 14, name: "2020" },
+  { id: 28, generationId: 14, name: "2021" },
+  { id: 29, generationId: 15, name: "2014" },
+  { id: 30, generationId: 15, name: "2015" },
+];
+
+// USER ROUTES
+// User routes - New project
+
+// data per popolare i select
+
+// First call: Get all TYPES of vehicles
+app.get("/frontoffice/project/types", (req, res) => {
+  res.status(200).send(types);
+});
+
+// Second call: Get BRANDS related to the selected vehicle type
+app.get("/frontoffice/project/brands/:typeId", (req, res) => {
+  const { typeId } = req.params;
+  const filteredBrands = brands.filter((brand) =>
+    brand.typeId.includes(Number(typeId))
+  );
+  res.status(200).send(filteredBrands);
+});
+
+// Third call: Get MODELS related to the selected brand
+app.get("/frontoffice/project/models/:brandId", (req, res) => {
+  const { brandId } = req.params;
+  const filteredModels = models.filter(
+    (model) => model.brandId === Number(brandId)
+  );
+  res.status(200).send(filteredModels);
+});
+
+// Fourth call: Get ENGINES related to the selected model
+app.get("/frontoffice/project/engines/:modelId", (req, res) => {
+  const { modelId } = req.params;
+  const filteredEngines = engines.filter(
+    (engine) => engine.modelId === Number(modelId)
+  );
+  res.status(200).send(filteredEngines);
+});
+
+// Fifth call: Get GEARBOXES related to the selected engine
+app.get("/frontoffice/project/gearboxes/:engineId", (req, res) => {
+  const { engineId } = req.params;
+  const filteredGearboxes = gearboxes.filter(
+    (gearbox) => gearbox.engineId === Number(engineId)
+  );
+  res.status(200).send(filteredGearboxes);
+});
+
+// Sixth call: Get GENERATIONS related to the selected gearbox
+app.get("/frontoffice/project/generations/:gearboxId", (req, res) => {
+  const { gearboxId } = req.params;
+  const filteredGenerations = generations.filter(
+    (generation) => generation.gearboxe1 === Number(gearboxId)
+  ); // Note: Check the property name 'gearboxe1' seems incorrect
+  res.status(200).send(filteredGenerations);
+});
+
+// Seventh call: Get YEARS related to the selected generation
+app.get("/frontoffice/project/years/:generationId", (req, res) => {
+  const { generationId } = req.params;
+  const filteredYears = years.filter(
+    (year) => year.generationId === Number(generationId)
+  );
+  res.status(200).send(filteredYears);
+});
+
+// user routes - creazione di un progetto
+app.post("/frontoffice/project/:userId/add", (req, res) => {
+  const { userId } = req.params;
+  let projectData = req.body;
+
+  console.log("projectData", projectData);
+  const user = allSlavesData.find((item) => item.id === Number(userId));
+  projectData = {
+    ...projectData,
+    projectId: Math.floor(Math.random() * 100),
     lastModified: new Date().toISOString(),
   };
+  if (user) {
+    user.projects.push(projectData);
 
-  carts.push(newCart);
-  console.log("carts", carts);
-
-  res.status(200).send(newCart);
-});
-
-app.get("/frontoffice/cart/:cartId", (req, res) => {
-  const cart = carts.find((item) => item.id === Number(req.params.cartId));
-  if (cart) {
-    res.status(200).send(cart);
-  } else {
-    res.status(404).send({
-      message: `Cart with id ${req.params.cartId} not found`,
-    });
-  }
-});
-
-app.post("/frontoffice/cart/:cartId/add", (req, res) => {
-  const { cartId } = req.params;
-  const orderData = req.body;
-  console.log("orderData", orderData);
-  const cart = carts.find((item) => item.id === cartId);
-
-  if (cart) {
-    cart.items.push(orderData?.items);
-    cart.vehicleInfo = orderData?.vehicleInfo ?? null;
-    cart.lastModified = new Date().toISOString();
     res.status(200).send({
-      updatedCart: cart,
+      projectId: projectData.projectId,
     });
   } else {
     res.status(404).send({
-      message: `Cart with id ${cartId} not found`,
+      message: `User with id ${userId} not found`,
     });
   }
 });
 
-// user routes - orders
-app.post("/frontoffice/cart/:cartId/order", (req, res) => {
-  const { cartId } = req.params;
-  const cart = carts.find((item) => item.id === cartId);
-  if (cart) {
-    // creo una nuova riga nella tabella orders con i dati del carrello
-    const order = {
-      id: 1233333,
-      userId: cart.userId,
-      cartId: cart.id,
-    };
-    orders.push(order);
-
-    // creo una nuova riga nella tabella order_items per ogni item nel carrello
-    cart.items.map((item) => {
-      order_items.push({
-        id: 9,
-        orderId: order.id,
-        serviceId: item.id,
-        serviceName: item.name,
-        price: item.credits,
+app.get("/frontoffice/project/:userId/:projectId", (req, res) => {
+  const { userId, projectId } = req.params;
+  const slave = allSlavesData.find((slave) => slave.id === Number(userId));
+  if (slave) {
+    console.log("slave", slave);
+    const project = slave.projects.find(
+      (project) => project.projectId === Number(projectId)
+    );
+    if (project) {
+      return res.status(200).send(project);
+    } else {
+      return res.status(404).send({
+        message: `Project with id ${projectId} not found`,
       });
-    });
-    res.status(200).send({
-      order,
-    });
+    }
   } else {
-    res.status(404).send({
-      message: `Cart with id ${cartId} not found`,
+    return res.status(404).send({
+      message: `Slave with id ${userId} not found`,
     });
   }
 });
 
 // user order credits
-
+// quando lo user conferma il numero di crediti da acquistare, in backend si crea un ordine con un orderId
 app.post("/frontoffice/orders/:userId/create", (req, res) => {
   const { userId } = req.params;
   const orderData = req.body;
-  console.log("orderData", orderData);
 
-  orders.push(orderData);
-  res.status(200).send({
-    ...orderData,
+  const orderCreated = {
+    ...orderData.orderData,
     orderId: 123444,
-  });
+  };
+
+  orders.push(orderCreated);
+  res.status(200).send(orderCreated);
 });
 
+// quando l'api di pagamento di paypal restituisce la conferma del pagamento, in backend si aggiorna lo stato dell'ordine
+// orderData passato come body contient infatti paymentDetails, ovvero paypalOrderId, paymentDate e paymentStatus, dati che vengono restituiti da paypal.
 app.put("/frontoffice/orders/:orderId/complete", (req, res) => {
   const { orderId } = req.params;
-  const { orderData } = req.body;
-  const order = orders.find((item) => item.id === Number(orderId));
-  if (order) {
-    order = orderData;
-    res.status(200).send({
-      updatedOrder: order,
-    });
+  const orderData = req.body;
+
+  let orderIndex = orders.findIndex((item) => item.orderId === Number(orderId));
+  if (orderIndex !== -1) {
+    orders[orderIndex] = {
+      ...orders[orderIndex],
+      ...orderData,
+    };
+
+    res.status(200).send(orders[orderIndex]);
   } else {
     res.status(404).send({
       message: `Order with id ${orderId} not found`,
