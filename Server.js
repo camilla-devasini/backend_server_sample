@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const { v4: uuidv4 } = require("uuid");
+const multer = require("multer");
 
 const app = express();
 app.use(cookieParser());
@@ -30,81 +31,85 @@ const allSlavesData = [
     credits: 100,
     lastCreditsUpdateReason: null,
     projects: [
+      // {  OLD DATA STRUCTURE
+      //   id: 1,
+      //   date: "2021-10-10",
+      //   status: "completed",
+      //   brand: "Fiat",
+      //   model: "500",
+      //   generation: "2010",
+      //   engine: "2.0",
+      //   engineHp: "200",
+      //   year: "2010",
+      //   gearbox: "automatic",
+      //   readingMethod: "Magicmotorsport",
+      //   extraOptions: "Only options --adblue",
+      //   price: 100,
+      //   tickets: [1, 2, 3],
+      //   uploadedFile: "file.pdf",
+      // },
       {
-        id: 1,
-        date: "2021-10-10",
-        status: "completed",
-        brand: "Fiat",
+        projectId: 1,
+        type: "Autovettura",
+        brand: "BMW",
         model: "500",
-        generation: "2010",
-        engine: "2.0",
+        engine: "118i",
         engineHp: "200",
         year: "2010",
         gearbox: "automatic",
+        generation: "F20",
         readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
+        services:
+          '[{"id": 1, "name": "DTC", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: ["P1234", "P2345"],
+        status: "new",
+        lastModified: "2021-10-10",
+        fileBuffer: null,
+        fileName: "FileName.zip",
+        fileId: 43,
         tickets: [1, 2, 3],
       },
       {
-        id: 2,
-        date: "2021-10-09",
-        status: "pending",
-        brand: "Toyota",
-        model: "Aygo",
-        generation: "2019",
-        engine: "2.0",
-        engineHp: "200",
-        year: "2010",
-        gearbox: "manual",
-        readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
-      },
-      {
-        id: 3,
-        date: "2021-10-08",
-        status: "pending",
-        brand: "Toyota",
-        model: "Z4X",
-        generation: "2018",
-        engine: "2.0",
-        engineHp: "100",
-        year: "2010",
-        gearbox: "automatic",
-        readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
-      },
-      {
-        id: 4,
-        date: "2021-10-07",
-        status: "refunded",
-        brand: "Fiat",
-        model: "600",
-        generation: "2010",
-        engine: "2.0",
-        engineHp: "200",
-        year: "2010",
-        gearbox: "automatic",
-        readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
-      },
-      {
-        id: 5,
-        date: "2021-10-10",
-        status: "failed",
+        projectId: 2,
+        type: "Autovettura",
         brand: "BMW",
-        model: "Serie 1",
-        generation: "2010",
-        engine: "2.0",
+        model: "500",
+        engine: "118i",
         engineHp: "200",
         year: "2010",
-        gearbox: "manual",
+        gearbox: "automatic",
+        generation: "F20",
         readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
+        services:
+          '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: [],
+        status: "new",
+        lastModified: "2021-10-10",
+        fileBuffer: null,
+        fileName: "FileName.zip",
+        fileId: 43,
+        tickets: [1, 2, 3],
+      },
+      {
+        projectId: 3,
+        type: "Autovettura",
+        brand: "BMW",
+        model: "500",
+        engine: "118i",
+        engineHp: "200",
+        year: "2010",
+        gearbox: "automatic",
+        generation: "F20",
+        readingMethod: "Magicmotorsport",
+        services:
+          '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: [],
+        status: "new",
+        lastModified: "2021-10-10",
+        fileBuffer: null,
+        fileName: "FileName.zip",
+        fileId: 43,
+        tickets: [1, 2, 3],
       },
     ],
   },
@@ -127,79 +132,67 @@ const allSlavesData = [
     lastCreditsUpdateReason: null,
     projects: [
       {
-        id: 1,
-        date: "2021-10-10",
-        status: "completed",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
-        engineHp: "127",
+        projectId: 1,
+        type: "Autovettura",
+        brand: "Audi",
+        model: "500",
+        engine: "118i",
+        engineHp: "200",
         year: "2010",
         gearbox: "automatic",
+        generation: "F20",
         readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
-      },
-      {
-        id: 2,
-        date: "2021-10-10",
+        services:
+          '[{"id": 1, "name": "DTC", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: ["P1234", "P2345"],
         status: "new",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
-        engineHp: "200",
-        year: "2010",
-        gearbox: "automatic",
-        readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
+        lastModified: "2021-10-10",
+        fileBuffer: null,
+        fileName: "FileName.zip",
+        fileId: 43,
+        tickets: [1, 2, 3],
       },
       {
-        id: 3,
-        date: "2021-10-10",
-        status: "pending",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
+        projectId: 2,
+        type: "Autovettura",
+        brand: "Fiat",
+        model: "500",
+        engine: "118i",
         engineHp: "200",
         year: "2010",
         gearbox: "automatic",
+        generation: "F20",
         readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
+        services:
+          '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: [],
+        status: "new",
+        lastModified: "2021-10-10",
+        fileBuffer: null,
+        fileName: "FileName.zip",
+        fileId: 43,
+        tickets: [1, 2, 3],
       },
       {
-        id: 4,
-        date: "2021-10-10",
-        status: "refunded",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
+        projectId: 3,
+        type: "Autovettura",
+        brand: "Fiat",
+        model: "500",
+        engine: "118i",
         engineHp: "200",
         year: "2010",
         gearbox: "automatic",
-        readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
-      },
-      {
-        id: 5,
-        date: "2021-10-10",
-        status: "failed",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
-        engineHp: "200",
-        year: "2010",
-        gearbox: "automatic",
-        readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
+        generation: "F20",
+        readingMethod: "Magicmotor",
+        services:
+          '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: [],
+        status: "new",
+        lastModified: "2021-10-10",
+        fileBuffer: null,
+        fileName: "FileName.zip",
+        fileId: 43,
+        tickets: [1, 2, 3],
       },
     ],
   },
@@ -222,80 +215,67 @@ const allSlavesData = [
     lastCreditsUpdateReason: null,
     projects: [
       {
-        id: 1,
-        date: "2021-10-10",
-        status: "completed",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
+        projectId: 1,
+        type: "Autovettura",
+        brand: "Audi",
+        model: "500",
+        engine: "118i",
         engineHp: "200",
         year: "2010",
         gearbox: "automatic",
+        generation: "F20",
         readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
-        ticketsId: [1, 2],
-      },
-      {
-        id: 2,
-        date: "2021-10-10",
+        services:
+          '[{"id": 1, "name": "DTC", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: ["P1234", "P2345"],
         status: "new",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
-        engineHp: "200",
-        year: "2010",
-        gearbox: "automatic",
-        readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
+        lastModified: "2021-10-10",
+        fileBuffer: null,
+        fileName: "FileName.zip",
+        fileId: 43,
+        tickets: [1, 2, 3],
       },
       {
-        id: 3,
-        date: "2021-10-10",
-        status: "pending",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
+        projectId: 2,
+        type: "Autovettura",
+        brand: "Fiat",
+        model: "500",
+        engine: "118i",
         engineHp: "200",
         year: "2010",
         gearbox: "automatic",
+        generation: "F20",
         readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
+        services:
+          '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: [],
+        status: "new",
+        lastModified: "2021-10-10",
+        fileBuffer: null,
+        fileName: "FileName.zip",
+        fileId: 43,
+        tickets: [1, 2, 3],
       },
       {
-        id: 4,
-        date: "2021-10-10",
-        status: "refunded",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
+        projectId: 3,
+        type: "Autovettura",
+        brand: "Fiat",
+        model: "500",
+        engine: "118i",
         engineHp: "200",
         year: "2010",
         gearbox: "automatic",
-        readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
-      },
-      {
-        id: 5,
-        date: "2021-10-10",
-        status: "failed",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
-        engineHp: "200",
-        year: "2010",
-        gearbox: "automatic",
-        readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
+        generation: "F20",
+        readingMethod: "Magicmotor",
+        services:
+          '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: [],
+        status: "new",
+        lastModified: "2021-10-10",
+        fileBuffer: null,
+        fileName: "FileName.zip",
+        fileId: 43,
+        tickets: [1, 2, 3],
       },
     ],
   },
@@ -319,79 +299,67 @@ const allSlavesData = [
     lastCreditsUpdateReason: null,
     projects: [
       {
-        id: 1,
-        date: "2021-10-10",
-        status: "completed",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
+        projectId: 1,
+        type: "Autovettura",
+        brand: "Audi",
+        model: "500",
+        engine: "118i",
         engineHp: "200",
         year: "2010",
         gearbox: "automatic",
+        generation: "F20",
         readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
-      },
-      {
-        id: 2,
-        date: "2021-10-10",
+        services:
+          '[{"id": 1, "name": "DTC", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: ["P1234", "P2345"],
         status: "new",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
-        engineHp: "200",
-        year: "2010",
-        gearbox: "automatic",
-        readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
+        lastModified: "2021-10-10",
+        fileBuffer: null,
+        fileName: "FileName.zip",
+        fileId: 43,
+        tickets: [1, 2, 3],
       },
       {
-        id: 3,
-        date: "2021-10-10",
-        status: "pending",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
+        projectId: 2,
+        type: "Autovettura",
+        brand: "Fiat",
+        model: "500",
+        engine: "118i",
         engineHp: "200",
         year: "2010",
         gearbox: "automatic",
+        generation: "F20",
         readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
+        services:
+          '[{"id": 1, "name": "DTC", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: ["P1234", "P2345"],
+        status: "new",
+        lastModified: "2021-10-10",
+        fileBuffer: null,
+        fileName: "FileName.zip",
+        fileId: 43,
+        tickets: [1, 2, 3],
       },
       {
-        id: 4,
-        date: "2021-10-10",
-        status: "refunded",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
+        projectId: 3,
+        type: "Autovettura",
+        brand: "Fiat",
+        model: "500",
+        engine: "118i",
         engineHp: "200",
         year: "2010",
         gearbox: "automatic",
-        readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
-      },
-      {
-        id: 5,
-        date: "2021-10-10",
-        status: "failed",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
-        engineHp: "200",
-        year: "2010",
-        gearbox: "automatic",
-        readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
+        generation: "F20",
+        readingMethod: "Magicmotor",
+        services:
+          '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: [],
+        status: "new",
+        lastModified: "2021-10-10",
+        fileBuffer: null,
+        fileName: "FileName.zip",
+        fileId: 43,
+        tickets: [1, 2, 3],
       },
     ],
   },
@@ -415,79 +383,67 @@ const allSlavesData = [
     lastCreditsUpdateReason: null,
     projects: [
       {
-        id: 1,
-        date: "2021-10-10",
-        status: "completed",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
+        projectId: 1,
+        type: "Autovettura",
+        brand: "Audi",
+        model: "500",
+        engine: "118i",
         engineHp: "200",
         year: "2010",
         gearbox: "automatic",
+        generation: "F20",
         readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
-      },
-      {
-        id: 2,
-        date: "2021-10-10",
+        services:
+          '[{"id": 1, "name": "DTC", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: ["P1234", "P2345"],
         status: "new",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
-        engineHp: "200",
-        year: "2010",
-        gearbox: "automatic",
-        readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
+        lastModified: "2021-10-10",
+        fileBuffer: null,
+        fileName: "FileName.zip",
+        fileId: 43,
+        tickets: [1, 2, 3],
       },
       {
-        id: 3,
-        date: "2021-10-10",
-        status: "pending",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
+        projectId: 2,
+        type: "Autovettura",
+        brand: "Fiat",
+        model: "500",
+        engine: "118i",
         engineHp: "200",
         year: "2010",
         gearbox: "automatic",
+        generation: "F20",
         readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
+        services:
+          '[{"id": 1, "name": "DTC", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: ["P1234", "P2345"],
+        status: "new",
+        lastModified: "2021-10-10",
+        fileBuffer: null,
+        fileName: "FileName.zip",
+        fileId: 43,
+        tickets: [1, 2, 3],
       },
       {
-        id: 4,
-        date: "2021-10-10",
-        status: "refunded",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
+        projectId: 3,
+        type: "Autovettura",
+        brand: "Fiat",
+        model: "500",
+        engine: "118i",
         engineHp: "200",
         year: "2010",
         gearbox: "automatic",
-        readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
-      },
-      {
-        id: 5,
-        date: "2021-10-10",
-        status: "failed",
-        brand: "brand1",
-        model: "Stelvio",
-        generation: "2010",
-        engine: "2.0",
-        engineHp: "200",
-        year: "2010",
-        gearbox: "automatic",
-        readingMethod: "Magicmotorsport",
-        extraOptions: "Only options --adblue",
-        price: 100,
+        generation: "F20",
+        readingMethod: "Magicmotor",
+        services:
+          '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: [],
+        status: "new",
+        lastModified: "2021-10-10",
+        fileBuffer: null,
+        fileName: "FileName.zip",
+        fileId: 43,
+        tickets: [1, 2, 3],
       },
     ],
   },
@@ -726,9 +682,12 @@ const pricingCredits = [
   },
 ];
 
-const userProjects = [];
-
 const orders = [];
+
+// per simulare upload e downolad dei file
+const fileStorage = {};
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -739,7 +698,6 @@ const userData = {
   userId: 1,
   role: "user",
   designId: 2,
-  role: "user",
   firstName: "Mario",
   lastName: "Rossi",
   companyName: "Rossi srl",
@@ -773,7 +731,6 @@ app.get(`/user/:userId`, (req, res) => {
 app.put(`/user/:userId`, (req, res) => {
   const userId = req.params.userId;
   const userInfo = req.body;
-  console.log("userInfo", userInfo);
   res.status(200).send({
     ...userData,
     userId: userId,
@@ -1043,9 +1000,8 @@ app.get("/backoffice/slaves/:slaveId/projects/:projectId", (req, res) => {
   const { slaveId, projectId } = req.params;
   const slave = allSlavesData.find((slave) => slave.id === Number(slaveId));
   if (slave) {
-    console.log("slave", slave);
     const project = slave.projects.find(
-      (project) => project.id === Number(projectId)
+      (project) => project.projectId === Number(projectId)
     );
     if (project) {
       return res.status(200).send(project);
@@ -1064,12 +1020,13 @@ app.get("/backoffice/slaves/:slaveId/projects/:projectId", (req, res) => {
 app.put(`/backoffice/slaves/:slaveId/projects/:projectId`, (req, res) => {
   const { slaveId, projectId } = req.params;
   const { status } = req.body;
-  console.log("request of body", req.body);
 
   const slave = allSlavesData.find((item) => item.id == slaveId);
 
   if (slave) {
-    const project = slave.projects.find((project) => project.id == projectId);
+    const project = slave.projects.find(
+      (project) => project.projectId == projectId
+    );
     if (project) {
       project.status = status;
 
@@ -1199,13 +1156,11 @@ const types = [
   { id: 2, name: "Moto" },
   { id: 3, name: "Camion" },
 ];
-
 const brands = [
   { id: 1, typeId: [1, 2, 3], name: "BMW" },
   { id: 2, typeId: [1, 2, 3], name: "Audi" },
   { id: 3, typeId: [1, 2, 3], name: "Mercedes" },
 ];
-
 const models = [
   { id: 1, brandId: 1, name: "Serie 1" },
   { id: 2, brandId: 1, name: "Serie 2" },
@@ -1222,7 +1177,6 @@ const engines = [
   { id: 6, modelId: 4, name: "3.0 TDI" },
   { id: 7, modelId: 5, name: "3.0 TDI" },
 ];
-
 const gearboxes = [
   { id: 1, engineId: 1, name: "Manual" },
   { id: 2, engineId: 1, name: "Automatic" },
@@ -1239,7 +1193,22 @@ const gearboxes = [
   { id: 13, engineId: 7, name: "Manual" },
   { id: 14, engineId: 7, name: "Automatic" },
 ];
-
+const engineHp = [
+  { id: 1, engineId: 1, name: 100 },
+  { id: 2, engineId: 1, name: 120 },
+  { id: 3, engineId: 2, name: 150 },
+  { id: 4, engineId: 2, name: 180 },
+  { id: 5, engineId: 3, name: 100 },
+  { id: 6, engineId: 3, name: 120 },
+  { id: 7, engineId: 4, name: 100 },
+  { id: 8, engineId: 4, name: 120 },
+  { id: 9, engineId: 5, name: 100 },
+  { id: 10, engineId: 5, name: 120 },
+  { id: 11, engineId: 6, name: 100 },
+  { id: 12, engineId: 6, name: 120 },
+  { id: 13, engineId: 7, name: 100 },
+  { id: 14, engineId: 7, name: 120 },
+];
 const generations = [
   { id: 1, gearboxe1: 1, name: "F20" },
   { id: 2, gearboxe1: 1, name: "F40" },
@@ -1275,7 +1244,6 @@ const generations = [
   { id: 32, gearboxe1: 31, name: "B9" },
   { id: 33, gearboxe1: 32, name: "B9" },
 ];
-
 const years = [
   { id: 1, generationId: 1, name: "2011" },
   { id: 2, generationId: 1, name: "2012" },
@@ -1308,12 +1276,19 @@ const years = [
   { id: 29, generationId: 15, name: "2014" },
   { id: 30, generationId: 15, name: "2015" },
 ];
-
-// USER ROUTES
-// User routes - New project
+const readingMethods = [
+  { id: 1, name: "MagicMotorsport Flex" },
+  { id: 2, name: "Alientech Kess" },
+  { id: 3, name: "Alientech K-Tag" },
+  { id: 4, name: "Dimsport New Trasdata" },
+  { id: 5, name: "Dimsport Genius" },
+  { id: 6, name: "Bosch" },
+  { id: 7, name: "ECM Titanium" },
+  { id: 8, name: "WinOLS" },
+  { id: 9, name: "Swiftec" },
+];
 
 // data per popolare i select
-
 // First call: Get all TYPES of vehicles
 app.get("/frontoffice/project/types", (req, res) => {
   res.status(200).send(types);
@@ -1346,13 +1321,21 @@ app.get("/frontoffice/project/engines/:modelId", (req, res) => {
   res.status(200).send(filteredEngines);
 });
 
-// Fifth call: Get GEARBOXES related to the selected engine
+// Fifth call: Get GEARBOXES and ENGINEHP related to the selected engine
 app.get("/frontoffice/project/gearboxes/:engineId", (req, res) => {
   const { engineId } = req.params;
   const filteredGearboxes = gearboxes.filter(
     (gearbox) => gearbox.engineId === Number(engineId)
   );
   res.status(200).send(filteredGearboxes);
+});
+
+app.get("/frontoffice/project/engineHp/:engineId", (req, res) => {
+  const { engineId } = req.params;
+  const filteredEngineHp = engineHp.filter(
+    (engine) => engine.engineId === Number(engineId)
+  );
+  res.status(200).send(filteredEngineHp);
 });
 
 // Sixth call: Get GENERATIONS related to the selected gearbox
@@ -1373,28 +1356,69 @@ app.get("/frontoffice/project/years/:generationId", (req, res) => {
   res.status(200).send(filteredYears);
 });
 
+app.get("/frontoffice/project/readingMethods", (req, res) => {
+  res.status(200).send(readingMethods);
+});
+
 // user routes - creazione di un progetto
-app.post("/frontoffice/project/:userId/add", (req, res) => {
-  const { userId } = req.params;
-  let projectData = req.body;
+app.post(
+  "/frontoffice/project/:userId/add",
+  upload.single("file"),
+  (req, res) => {
+    const { userId } = req.params;
+    let projectData = req.body;
+    const file = req.file;
+    const fileId = Math.floor(Math.random() * 100);
+    if (file) {
+      //salvo i dati del file in fileStorage (provvisoriamente)
+      fileStorage[fileId] = {
+        fileBuffer: file.buffer,
+        fileName: file.originalname,
+        fileId: fileId,
+      };
+      console.log("fileId uplopaded:", fileId);
+    }
 
-  console.log("projectData", projectData);
-  const user = allSlavesData.find((item) => item.id === Number(userId));
-  projectData = {
-    ...projectData,
-    projectId: Math.floor(Math.random() * 100),
-    lastModified: new Date().toISOString(),
-  };
-  if (user) {
-    user.projects.push(projectData);
+    const user = allSlavesData.find((item) => item.id === Number(userId));
+    const newProj = {
+      ...projectData,
+      projectId: Math.floor(Math.random() * 100),
+      lastModified: new Date().toISOString(),
+      fileBuffer: file ? file.buffer : null,
+      fileName: file ? file.originalname : null,
+      fileId: fileId,
+      status: "new",
+      tickets: [],
+    };
 
-    res.status(200).send({
-      projectId: projectData.projectId,
-    });
+    if (user) {
+      user.projects.push(newProj);
+      console.log("new project added:", newProj);
+
+      res.status(200).send({
+        projectId: newProj.projectId,
+      });
+    } else {
+      res.status(404).send({
+        message: `User with id ${userId} not found`,
+      });
+    }
+  }
+);
+
+// user routes - dettaglio progetto
+app.get("/frontoffice/project/:projectId/download/:fileId", (req, res) => {
+  const fileId = req.params.fileId;
+  const file = fileStorage[fileId];
+  console.log("file downloaded:", file);
+  if (file) {
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename=${file.fileName}`
+    );
+    res.send(file.fileBuffer);
   } else {
-    res.status(404).send({
-      message: `User with id ${userId} not found`,
-    });
+    res.status(404).send("File not found");
   }
 });
 
@@ -1402,7 +1426,6 @@ app.get("/frontoffice/project/:userId/:projectId", (req, res) => {
   const { userId, projectId } = req.params;
   const slave = allSlavesData.find((slave) => slave.id === Number(userId));
   if (slave) {
-    console.log("slave", slave);
     const project = slave.projects.find(
       (project) => project.projectId === Number(projectId)
     );
@@ -1418,6 +1441,68 @@ app.get("/frontoffice/project/:userId/:projectId", (req, res) => {
       message: `Slave with id ${userId} not found`,
     });
   }
+});
+
+//user routes - elenco progetti
+app.get("/frontoffice/:userId/projects", (req, res) => {
+  const slaveId = req.params.userId;
+  const { page = 1, status, brand, model, date } = req.query;
+  const limit = 4;
+
+  // Find the slave by id
+  const slave = allSlavesData.find((slave) => slave.id === Number(slaveId));
+
+  if (!slave) {
+    return res.status(404).send({
+      message: `Slave with id ${slaveId} not found`,
+    });
+  }
+
+  let filteredProjects = slave.projects;
+
+  filteredProjects = filteredProjects.filter((project) => {
+    return (
+      (status !== "all" ? project.status === status : true) &&
+      (brand !== "all" ? project.brand === brand : true) &&
+      (model !== "all" ? project.model === model : true) &&
+      (date !== "all" ? project.date === date : true)
+    );
+  });
+
+  const resultsCount = filteredProjects.length;
+  const totalPages = Math.ceil(resultsCount / limit);
+  const validPage = Math.max(1, Math.min(Number(page), totalPages));
+
+  const offset = (validPage - 1) * limit;
+  const paginatedResults = filteredProjects.slice(offset, offset + limit);
+
+  res.status(200).send({
+    notFilteredData: slave.projects,
+    data: paginatedResults,
+    pagination: {
+      activePage: Number(page),
+      itemsPerPage: limit,
+      totalPages: totalPages,
+      totalItems: resultsCount,
+      totalCompletedProjects: slave.projects.filter(
+        (item) => item.status === "completed"
+      ).length,
+      totalPendingProjects: slave.projects.filter(
+        (item) => item.status === "pending"
+      ).length,
+      totalRefundedProjects: slave.projects.filter(
+        (item) => item.status === "refunded"
+      ).length,
+      totalFailedProjects: slave.projects.filter(
+        (item) => item.status === "failed"
+      ).length,
+      totalNewProjects: slave.projects.filter((item) => item.status === "new")
+        .length,
+      totalInProgressProjects: slave.projects.filter(
+        (item) => item.status === "inProgress"
+      ).length,
+    },
+  });
 });
 
 // user order credits
