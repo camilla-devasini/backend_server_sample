@@ -697,7 +697,7 @@ app.get("/", (req, res) => {
 const userData = {
   userId: 1,
   role: "user",
-  designId: 2,
+  designId: 1,
   firstName: "Mario",
   lastName: "Rossi",
   companyName: "Rossi srl",
@@ -716,7 +716,7 @@ app.get(`/user/:userId/settings`, (req, res) => {
   const userId = req.params.userId;
   res.status(200).send({
     userId: userId,
-    designId: 2,
+    designId: 1,
   });
 });
 
@@ -731,10 +731,15 @@ app.get(`/user/:userId`, (req, res) => {
 app.put(`/user/:userId`, (req, res) => {
   const userId = req.params.userId;
   const userInfo = req.body;
-  res.status(200).send({
+  const userDataUpdated = {
     ...userData,
-    userId: userId,
     ...userInfo,
+  };
+  console.log("updatedUser", userDataUpdated);
+  console.log("userData", userData);
+
+  res.status(200).send({
+    ...userDataUpdated,
   });
 });
 
@@ -1382,7 +1387,7 @@ app.post(
     const user = allSlavesData.find((item) => item.id === Number(userId));
     const newProj = {
       ...projectData,
-      projectId: Math.floor(Math.random() * 100),
+      projectId: Math.floor(Math.random() * 50) + 50,
       lastModified: new Date().toISOString(),
       fileBuffer: file ? file.buffer : null,
       fileName: file ? file.originalname : null,
