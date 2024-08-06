@@ -64,9 +64,9 @@ const allSlavesData = [
         dtc: ["P1234", "P2345"],
         status: "new",
         lastModified: "2021-10-10",
-        fileBuffer: null,
-        fileName: "FileName.zip",
-        fileId: 43,
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
         tickets: [1, 2, 3],
       },
       {
@@ -85,9 +85,9 @@ const allSlavesData = [
         dtc: [],
         status: "new",
         lastModified: "2021-10-10",
-        fileBuffer: null,
-        fileName: "FileName.zip",
-        fileId: 43,
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
         tickets: [1, 2, 3],
       },
       {
@@ -106,9 +106,9 @@ const allSlavesData = [
         dtc: [],
         status: "new",
         lastModified: "2021-10-10",
-        fileBuffer: null,
-        fileName: "FileName.zip",
-        fileId: 43,
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
         tickets: [1, 2, 3],
       },
     ],
@@ -147,9 +147,9 @@ const allSlavesData = [
         dtc: ["P1234", "P2345"],
         status: "new",
         lastModified: "2021-10-10",
-        fileBuffer: null,
-        fileName: "FileName.zip",
-        fileId: 43,
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
         tickets: [1, 2, 3],
       },
       {
@@ -168,9 +168,9 @@ const allSlavesData = [
         dtc: [],
         status: "new",
         lastModified: "2021-10-10",
-        fileBuffer: null,
-        fileName: "FileName.zip",
-        fileId: 43,
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
         tickets: [1, 2, 3],
       },
       {
@@ -189,9 +189,9 @@ const allSlavesData = [
         dtc: [],
         status: "new",
         lastModified: "2021-10-10",
-        fileBuffer: null,
-        fileName: "FileName.zip",
-        fileId: 43,
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
         tickets: [1, 2, 3],
       },
     ],
@@ -230,9 +230,9 @@ const allSlavesData = [
         dtc: ["P1234", "P2345"],
         status: "new",
         lastModified: "2021-10-10",
-        fileBuffer: null,
-        fileName: "FileName.zip",
-        fileId: 43,
+        userFileBuffer: null,
+        useruserFileName: "FileName.zip",
+        userFileId: 43,
         tickets: [1, 2, 3],
       },
       {
@@ -251,9 +251,9 @@ const allSlavesData = [
         dtc: [],
         status: "new",
         lastModified: "2021-10-10",
-        fileBuffer: null,
-        fileName: "FileName.zip",
-        fileId: 43,
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
         tickets: [1, 2, 3],
       },
       {
@@ -272,9 +272,9 @@ const allSlavesData = [
         dtc: [],
         status: "new",
         lastModified: "2021-10-10",
-        fileBuffer: null,
-        fileName: "FileName.zip",
-        fileId: 43,
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
         tickets: [1, 2, 3],
       },
     ],
@@ -314,9 +314,9 @@ const allSlavesData = [
         dtc: ["P1234", "P2345"],
         status: "new",
         lastModified: "2021-10-10",
-        fileBuffer: null,
-        fileName: "FileName.zip",
-        fileId: 43,
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
         tickets: [1, 2, 3],
       },
       {
@@ -335,9 +335,9 @@ const allSlavesData = [
         dtc: ["P1234", "P2345"],
         status: "new",
         lastModified: "2021-10-10",
-        fileBuffer: null,
-        fileName: "FileName.zip",
-        fileId: 43,
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
         tickets: [1, 2, 3],
       },
       {
@@ -356,9 +356,9 @@ const allSlavesData = [
         dtc: [],
         status: "new",
         lastModified: "2021-10-10",
-        fileBuffer: null,
-        fileName: "FileName.zip",
-        fileId: 43,
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
         tickets: [1, 2, 3],
       },
     ],
@@ -398,9 +398,9 @@ const allSlavesData = [
         dtc: ["P1234", "P2345"],
         status: "new",
         lastModified: "2021-10-10",
-        fileBuffer: null,
-        fileName: "FileName.zip",
-        fileId: 43,
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
         tickets: [1, 2, 3],
       },
       {
@@ -419,9 +419,9 @@ const allSlavesData = [
         dtc: ["P1234", "P2345"],
         status: "new",
         lastModified: "2021-10-10",
-        fileBuffer: null,
-        fileName: "FileName.zip",
-        fileId: 43,
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
         tickets: [1, 2, 3],
       },
       {
@@ -440,9 +440,9 @@ const allSlavesData = [
         dtc: [],
         status: "new",
         lastModified: "2021-10-10",
-        fileBuffer: null,
-        fileName: "FileName.zip",
-        fileId: 43,
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
         tickets: [1, 2, 3],
       },
     ],
@@ -685,7 +685,8 @@ const pricingCredits = [
 const orders = [];
 
 // per simulare upload e downolad dei file
-const fileStorage = {};
+const userFileStorage = {};
+const adminFileStorage = {};
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -1022,33 +1023,62 @@ app.get("/backoffice/slaves/:slaveId/projects/:projectId", (req, res) => {
   }
 });
 
-app.put(`/backoffice/slaves/:slaveId/projects/:projectId`, (req, res) => {
-  const { slaveId, projectId } = req.params;
-  const { status } = req.body;
+app.put(
+  `/backoffice/slaves/:slaveId/projects/:projectId`,
+  upload.single("file"),
+  (req, res) => {
+    const { slaveId, projectId } = req.params;
+    let formData = req.body;
+    console.log("formData", formData);
+    const file = req.file;
+    console.log("file", file);
 
-  const slave = allSlavesData.find((item) => item.id == slaveId);
+    // Handle the status update
+    const status = formData.status;
 
-  if (slave) {
-    const project = slave.projects.find(
-      (project) => project.projectId == projectId
-    );
-    if (project) {
-      project.status = status;
+    const fileId = Math.floor(Math.random() * 100);
+    if (file) {
+      adminFileStorage[fileId] = {
+        adminFileBuffer: file.buffer,
+        adminFileName: file.originalname,
+        adminFileId: fileId,
+      };
+    }
 
-      res.status(200).send({
-        updatedProject: project,
-      });
+    const slave = allSlavesData.find((item) => item.id == slaveId);
+    const newProjectData = {
+      ...(status && { status }), // Only include status if it was sent
+      ...(file && {
+        adminFileBuffer: file.buffer,
+        adminFileName: file.originalname,
+        adminFileId: fileId,
+      }),
+    };
+
+    if (slave) {
+      const projectIndex = slave.projects.findIndex(
+        (p) => p.projectId == projectId
+      );
+      if (projectIndex !== -1) {
+        slave.projects[projectIndex] = {
+          ...slave.projects[projectIndex],
+          ...newProjectData,
+        };
+        res.status(200).send({
+          updatedProject: slave.projects[projectIndex],
+        });
+      } else {
+        res.status(404).send({
+          message: `Project with id ${projectId} not found`,
+        });
+      }
     } else {
       res.status(404).send({
-        message: `Project with id ${projectId} not found`,
+        message: `Slave with id ${slaveId} not found`,
       });
     }
-  } else {
-    res.status(404).send({
-      message: `Slave with id ${slaveId} not found`,
-    });
   }
-});
+);
 
 app.put(`/backoffice/slaves/:slaveId`, (req, res) => {
   const { slaveId } = req.params;
@@ -1375,11 +1405,11 @@ app.post(
     const file = req.file;
     const fileId = Math.floor(Math.random() * 100);
     if (file) {
-      //salvo i dati del file in fileStorage (provvisoriamente)
-      fileStorage[fileId] = {
-        fileBuffer: file.buffer,
-        fileName: file.originalname,
-        fileId: fileId,
+      //salvo i dati del file in userFileStorage (provvisoriamente)
+      userFileStorage[fileId] = {
+        userFileBuffer: file.buffer,
+        userFileName: file.originalname,
+        userFileId: fileId,
       };
       console.log("fileId uplopaded:", fileId);
     }
@@ -1389,9 +1419,9 @@ app.post(
       ...projectData,
       projectId: Math.floor(Math.random() * 50) + 50,
       lastModified: new Date().toISOString(),
-      fileBuffer: file ? file.buffer : null,
-      fileName: file ? file.originalname : null,
-      fileId: fileId,
+      userFileBuffer: file ? file.buffer : null,
+      userFileName: file ? file.originalname : null,
+      userFileId: fileId,
       status: "new",
       tickets: [],
     };
@@ -1414,14 +1444,14 @@ app.post(
 // user routes - dettaglio progetto
 app.get("/frontoffice/project/:projectId/download/:fileId", (req, res) => {
   const fileId = req.params.fileId;
-  const file = fileStorage[fileId];
+  const file = userFileStorage[fileId];
   console.log("file downloaded:", file);
   if (file) {
     res.setHeader(
       "Content-Disposition",
-      `attachment; filename=${file.fileName}`
+      `attachment; filename=${file.userFileName}`
     );
-    res.send(file.fileBuffer);
+    res.send(file.userFileBuffer);
   } else {
     res.status(404).send("File not found");
   }
