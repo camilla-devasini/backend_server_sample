@@ -697,7 +697,7 @@ app.get("/", (req, res) => {
 });
 const userData = {
   userId: 1,
-  role: "user",
+  role: "admin",
   designId: 1,
   firstName: "Mario",
   lastName: "Rossi",
@@ -744,61 +744,97 @@ app.put(`/user/:userId`, (req, res) => {
   });
 });
 
-app.get("/faq", (req, res) => {
+let faqData = {
+  title: "Benvenuto nella sezione FAQ",
+  description: "Qui potresti trovare quello che stai cercando.",
+  faqList: [
+    {
+      id: 0,
+      question: "Come posso fare acquisti",
+      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
+    },
+    {
+      id: 1,
+      question: "Dove compro i crediti",
+      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
+    },
+    {
+      id: 2,
+      question: "Diritto al rimborso",
+      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
+    },
+    {
+      id: 3,
+      question: "domanda 4",
+      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
+    },
+    {
+      id: 4,
+      question: "domanda 5",
+      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
+    },
+    {
+      id: 5,
+      question: "domanda 6",
+      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
+    },
+    {
+      id: 6,
+      question: "domanda 7",
+      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
+    },
+    {
+      id: 7,
+      question: "domanda 8",
+      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
+    },
+  ],
+};
+// Endpoint per l'utente finale che ritorna solo la lista aggiornata delle FAQ
+app.get("/frontend/faq", (req, res) => {
+  const { title, description, faqList } = faqData;
   res.status(200).send({
-    title: "Benvenuto nella sezione FAQ",
-    description: "Qui potresti trovare quello che stai cercando.",
-    faqList: [
-      {
-        id: 0,
-        question: "Come posso fare acquisti",
-        answer:
-          "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-      },
-      {
-        id: 1,
-        question: "Dove compro i crediti",
-        answer:
-          "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-      },
-      {
-        id: 2,
-        question: "Diritto al rimborso",
-        answer:
-          "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-      },
-      {
-        id: 3,
-        question: "domanda 4",
-        answer:
-          "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-      },
-      {
-        id: 4,
-        question: "domanda 5",
-        answer:
-          "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-      },
-      {
-        id: 5,
-        question: "domanda 6",
-        answer:
-          "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-      },
-      {
-        id: 6,
-        question: "domanda 7",
-        answer:
-          "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-      },
-      {
-        id: 7,
-        question: "domanda 8",
-        answer:
-          "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-      },
-    ],
+    title,
+    description,
+    faqList: faqList.map(faq => ({
+      question: faq.question,
+      answer: faq.answer,
+    })),
   });
+});
+
+app.get("/faq", (req, res) => {
+  res.status(200).send(faqData);
+});
+
+// CREATE FAQ
+app.post("/faq", (req, res) => {
+  const newFaq = {
+    id: faqData.faqList.length,
+    question: req.body.question,
+    answer: req.body.answer,
+  };
+  faqData.faqList.push(newFaq);
+  res.status(201).send(newFaq);
+});
+
+// UPDATE FAQ
+app.put("/faq/:id", (req, res) => {
+  const faqId = parseInt(req.params.id, 10);
+  const index = faqData.faqList.findIndex(faq => faq.id === faqId);
+  if (index !== -1) {
+    faqData.faqList[index] = { ...faqData.faqList[index], ...req.body };
+    res.status(200).send(faqData.faqList[index]);
+  } else {
+    res.status(404).send({ message: "FAQ not found" });
+  }
+});
+
+// DELETE FAQ
+app.delete("/faq/:id", (req, res) => {
+  const faqId = parseInt(req.params.id, 10);
+  faqData.faqList = faqData.faqList.filter(faq => faq.id !== faqId);
+  res.status(200).send({ message: "FAQ deleted successfully" });
 });
 
 // LOGIN/REGISTER
