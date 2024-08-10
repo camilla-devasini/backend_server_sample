@@ -4,11 +4,26 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const { v4: uuidv4 } = require("uuid");
 const multer = require("multer");
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 app.use(cookieParser());
 let cors = require("cors");
+const filePath = path.join(__dirname, 'faqData.json');
 
+// Funzione per caricare le FAQ dal file JSON
+function loadFaqData() {
+  const data = fs.readFileSync(filePath, 'utf8');
+  return JSON.parse(data);
+}
+
+// Funzione per salvare le FAQ nel file JSON
+function saveFaqData(data) {
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+}
+
+// Carica le FAQ all'avvio dell'applicazione
 const port = 3001;
 
 // entità che simulano i dati del database
@@ -744,54 +759,12 @@ app.put(`/user/:userId`, (req, res) => {
   });
 });
 
-let faqData = {
-  title: "Benvenuto nella sezione FAQ",
-  description: "Qui potresti trovare quello che stai cercando.",
-  faqList: [
-    {
-      id: 0,
-      question: "Come posso fare acquisti",
-      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-    },
-    {
-      id: 1,
-      question: "Dove compro i crediti",
-      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-    },
-    {
-      id: 2,
-      question: "Diritto al rimborso",
-      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-    },
-    {
-      id: 3,
-      question: "domanda 4",
-      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-    },
-    {
-      id: 4,
-      question: "domanda 5",
-      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-    },
-    {
-      id: 5,
-      question: "domanda 6",
-      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-    },
-    {
-      id: 6,
-      question: "domanda 7",
-      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-    },
-    {
-      id: 7,
-      question: "domanda 8",
-      answer: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
-    },
-  ],
-};
-// Endpoint per l'utente finale che ritorna solo la lista aggiornata delle FAQ
-app.get("/frontend/faq", (req, res) => {
+
+
+let faqData = loadFaqData();
+
+// GET /frontoffice/faq
+app.get("/frontoffice/faq", (req, res) => {
   const { title, description, faqList } = faqData;
   res.status(200).send({
     title,
@@ -803,18 +776,25 @@ app.get("/frontend/faq", (req, res) => {
   });
 });
 
-app.get("/faq", (req, res) => {
-  res.status(200).send(faqData);
+// GET /backoffice/faq
+app.get("/backoffice/faq", (req, res) => {
+  const { title, description, faqList } = faqData;
+  res.status(200).send({
+    title,
+    description,
+    faqList,
+  });
 });
 
 // CREATE FAQ
 app.post("/faq", (req, res) => {
   const newFaq = {
-    id: faqData.faqList.length,
+    id: faqData.faqList.length ? faqData.faqList[faqData.faqList.length - 1].id + 1 : 0, 
     question: req.body.question,
     answer: req.body.answer,
   };
   faqData.faqList.push(newFaq);
+  saveFaqData(faqData); 
   res.status(201).send(newFaq);
 });
 
@@ -824,6 +804,7 @@ app.put("/faq/:id", (req, res) => {
   const index = faqData.faqList.findIndex(faq => faq.id === faqId);
   if (index !== -1) {
     faqData.faqList[index] = { ...faqData.faqList[index], ...req.body };
+    saveFaqData(faqData); 
     res.status(200).send(faqData.faqList[index]);
   } else {
     res.status(404).send({ message: "FAQ not found" });
@@ -832,10 +813,17 @@ app.put("/faq/:id", (req, res) => {
 
 // DELETE FAQ
 app.delete("/faq/:id", (req, res) => {
-  const faqId = parseInt(req.params.id, 10);
+  const faqId = parseInt(req.params.id, 10); 
+  const initialLength = faqData.faqList.length;
   faqData.faqList = faqData.faqList.filter(faq => faq.id !== faqId);
-  res.status(200).send({ message: "FAQ deleted successfully" });
+  if (faqData.faqList.length < initialLength) {
+    saveFaqData(faqData); 
+    res.status(200).send({ message: "FAQ deleted successfully" });
+  } else {
+    res.status(404).send({ message: "FAQ not found" });
+  }
 });
+
 
 // LOGIN/REGISTER
 app.post("/login", (req, res) => {
