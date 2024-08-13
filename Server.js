@@ -31,23 +31,6 @@ const allSlavesData = [
     credits: 100,
     lastCreditsUpdateReason: null,
     projects: [
-      // {  OLD DATA STRUCTURE
-      //   id: 1,
-      //   date: "2021-10-10",
-      //   status: "completed",
-      //   brand: "Fiat",
-      //   model: "500",
-      //   generation: "2010",
-      //   engine: "2.0",
-      //   engineHp: "200",
-      //   year: "2010",
-      //   gearbox: "automatic",
-      //   readingMethod: "Magicmotorsport",
-      //   extraOptions: "Only options --adblue",
-      //   price: 100,
-      //   tickets: [1, 2, 3],
-      //   uploadedFile: "file.pdf",
-      // },
       {
         projectId: 1,
         type: "Autovettura",
@@ -67,6 +50,9 @@ const allSlavesData = [
         userFileBuffer: null,
         userFileName: "FileName.zip",
         userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
         tickets: [1, 2, 3],
       },
       {
@@ -88,6 +74,9 @@ const allSlavesData = [
         userFileBuffer: null,
         userFileName: "FileName.zip",
         userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
         tickets: [1, 2, 3],
       },
       {
@@ -109,6 +98,9 @@ const allSlavesData = [
         userFileBuffer: null,
         userFileName: "FileName.zip",
         userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
         tickets: [1, 2, 3],
       },
     ],
@@ -150,6 +142,9 @@ const allSlavesData = [
         userFileBuffer: null,
         userFileName: "FileName.zip",
         userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
         tickets: [1, 2, 3],
       },
       {
@@ -171,6 +166,9 @@ const allSlavesData = [
         userFileBuffer: null,
         userFileName: "FileName.zip",
         userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
         tickets: [1, 2, 3],
       },
       {
@@ -192,6 +190,9 @@ const allSlavesData = [
         userFileBuffer: null,
         userFileName: "FileName.zip",
         userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
         tickets: [1, 2, 3],
       },
     ],
@@ -233,6 +234,9 @@ const allSlavesData = [
         userFileBuffer: null,
         useruserFileName: "FileName.zip",
         userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
         tickets: [1, 2, 3],
       },
       {
@@ -254,6 +258,9 @@ const allSlavesData = [
         userFileBuffer: null,
         userFileName: "FileName.zip",
         userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
         tickets: [1, 2, 3],
       },
       {
@@ -275,6 +282,9 @@ const allSlavesData = [
         userFileBuffer: null,
         userFileName: "FileName.zip",
         userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
         tickets: [1, 2, 3],
       },
     ],
@@ -317,6 +327,9 @@ const allSlavesData = [
         userFileBuffer: null,
         userFileName: "FileName.zip",
         userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
         tickets: [1, 2, 3],
       },
       {
@@ -338,6 +351,9 @@ const allSlavesData = [
         userFileBuffer: null,
         userFileName: "FileName.zip",
         userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
         tickets: [1, 2, 3],
       },
       {
@@ -359,6 +375,9 @@ const allSlavesData = [
         userFileBuffer: null,
         userFileName: "FileName.zip",
         userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
         tickets: [1, 2, 3],
       },
     ],
@@ -401,6 +420,9 @@ const allSlavesData = [
         userFileBuffer: null,
         userFileName: "FileName.zip",
         userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
         tickets: [1, 2, 3],
       },
       {
@@ -422,6 +444,9 @@ const allSlavesData = [
         userFileBuffer: null,
         userFileName: "FileName.zip",
         userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
         tickets: [1, 2, 3],
       },
       {
@@ -443,6 +468,9 @@ const allSlavesData = [
         userFileBuffer: null,
         userFileName: "FileName.zip",
         userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
         tickets: [1, 2, 3],
       },
     ],
@@ -458,10 +486,61 @@ const allTickets = [
     status: "inProgress", // altri status: "open", "completed", "closed"
     category: "billing",
     title: "Problema x",
-    description: "Descrizione del problema",
+    description:
+      "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i progressi?",
     date: "2024-07-05",
     lastUpdated: "2024-07-05",
-    attachments: null,
+    userAttachments: [
+      {
+        userFileId: 1,
+        userFileName: "file.zip",
+        userFileBuffer: [0x50, 0x4b, 0x03, 0x04],
+      },
+    ],
+    messages: [],
+    resolutionDate: null,
+  },
+  {
+    id: 2,
+    userId: 1,
+    projectId: 1, // id della lavorazione collegata al ticket
+    companyName: "Auto23",
+    status: "closed", // altri status: "open", "completed", "closed"
+    category: "administrative",
+    title: "Problema Y",
+    description:
+      "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i progressi?",
+    date: "2024-07-05",
+    lastUpdated: "2024-07-05",
+    userAttachments: [
+      {
+        userFileId: 1,
+        userFileName: "file.zip",
+        userFileBuffer: [0x50, 0x4b, 0x03, 0x04],
+      },
+    ],
+    messages: [],
+    resolutionDate: null,
+  },
+  {
+    id: 3,
+    userId: 1,
+    projectId: 1, // id della lavorazione collegata al ticket
+    companyName: "Auto23",
+    status: "open", // altri status: "open", "completed", "closed"
+    category: "administrative",
+    title: "Problema Y",
+    description:
+      "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i progressi?",
+    date: "2024-07-05",
+    lastUpdated: "2024-07-05",
+    userAttachments: [
+      {
+        userFileId: 1,
+        userFileName: "file.zip",
+        userFileBuffer: [0x50, 0x4b, 0x03, 0x04],
+      },
+    ],
     messages: [],
     resolutionDate: null,
   },
@@ -473,10 +552,20 @@ const allTickets = [
     status: "open", // altri status: "inProgress", "completed", "closed"
     category: "technical",
     title: "Problema y",
-    description: "Descrizione del problema",
+    description:
+      "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i miei progressi?",
     date: "2024-07-05",
     lastUpdated: "2024-07-05",
-    attachments: null,
+    userAttachments: [
+      {
+        userFileId: 2,
+        userFileName: "file.zip",
+        userFileBuffer: null,
+      },
+    ],
+    adminFileBuffer: null,
+    adminFileName: "FileName.zip",
+    adminFileId: 52,
     messages: [
       {
         role: "admin",
@@ -499,10 +588,20 @@ const allTickets = [
     status: "completed", // altri status: "open", "inProgress", "closed"
     category: "technical",
     title: "Problema z",
-    description: "Descrizione del problema",
+    description:
+      "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i miei progressi?",
     date: "2024-07-05",
     lastUpdated: "2024-07-05",
-    attachments: null,
+    userAttachments: [
+      {
+        userFileId: 1,
+        userFileName: "file.zip",
+        userFileBuffer: null,
+      },
+    ],
+    adminFileBuffer: null,
+    adminFileName: "FileName.zip",
+    adminFileId: 52,
     messages: [
       {
         role: "admin",
@@ -525,10 +624,20 @@ const allTickets = [
     status: "closed", // altri status: "open", "inProgress", "closed"
     category: "technical",
     title: "Problema t",
-    description: "Descrizione del problema",
+    description:
+      "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i miei progressi?",
     date: "2024-07-05",
     lastUpdated: "2024-07-05",
-    attachments: null,
+    userAttachments: [
+      {
+        userFileId: 1,
+        userFileName: "file.zip",
+        userFileBuffer: null,
+      },
+    ],
+    adminFileBuffer: null,
+    adminFileName: "FileName.zip",
+    adminFileId: 52,
     messages: [
       {
         role: "admin",
@@ -551,10 +660,20 @@ const allTickets = [
     status: "closed", // altri status: "open", "inProgress", "closed"
     category: "technical",
     title: "Problema t",
-    description: "Descrizione del problema",
+    description:
+      "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i miei progressi?",
     date: "2024-07-05",
     lastUpdated: "2024-07-05",
-    attachments: null,
+    userAttachments: [
+      {
+        userFileId: 1,
+        userFileName: "file.zip",
+        userFileBuffer: null,
+      },
+    ],
+    adminFileBuffer: null,
+    adminFileName: "FileName.zip",
+    adminFileId: 52,
     messages: [
       {
         role: "admin",
@@ -577,10 +696,20 @@ const allTickets = [
     status: "closed", // altri status: "open", "inProgress", "closed"
     category: "technical",
     title: "Problema t",
-    description: "Descrizione del problema",
+    description:
+      "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i miei progressi?",
     date: "2024-07-05",
     lastUpdated: "2024-07-05",
-    attachments: null,
+    userAttachments: [
+      {
+        userFileId: 1,
+        userFileName: "file.zip",
+        userFileBuffer: null,
+      },
+    ],
+    adminFileBuffer: null,
+    adminFileName: "FileName.zip",
+    adminFileId: 52,
     messages: [
       {
         role: "admin",
@@ -687,6 +816,8 @@ const orders = [];
 // per simulare upload e downolad dei file
 const userFileStorage = {};
 const adminFileStorage = {};
+const ticketFileStorage = {};
+const userTicketFileStorage = {};
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -1158,23 +1289,45 @@ app.put("/backoffice/tickets/:id", (req, res) => {
   }
 });
 
-app.post("/backoffice/tickets/:id/messages", (req, res) => {
-  const ticketId = req.params.id;
-  const { messageData } = req.body;
-  // questa chiamata deve aggiungere una nuova riga alla tabella tickets_messages associando il messaggio al ticket con id ticketId
-  // post o put?
-  const ticket = allTickets.find((item) => item.id === Number(ticketId));
-  if (ticket) {
-    ticket.messages.push(messageData);
-    res.status(200).send({
-      updatedTicket: ticket,
-    });
-  } else {
-    res.status(404).send({
-      message: `Ticket with id ${ticketId} not found`,
-    });
+app.post(
+  "/backoffice/tickets/:id/messages",
+  upload.single("file"),
+  (req, res) => {
+    const ticketId = req.params.id;
+    const messageData = req.body;
+    const file = req.file;
+    const fileId = Math.floor(Math.random() * 100);
+
+    if (file) {
+      ticketFileStorage[fileId] = {
+        ticketFileBuffer: file.buffer,
+        ticketFileName: file.originalname,
+        ticketFileId: fileId,
+      };
+    }
+    // questa chiamata deve aggiungere una nuova riga alla tabella tickets_messages associando il messaggio al ticket con id ticketId
+    // post o put?
+    const ticket = allTickets.find((item) => item.id === Number(ticketId));
+    const newMessageData = {
+      ...messageData,
+      ticketFileBuffer: file ? file.buffer : null,
+      ticketFileName: file ? file.originalname : null,
+      ticketFileId: file ? fileId : null,
+    };
+
+    if (ticket) {
+      console.log("newMessageData", newMessageData);
+      ticket.messages.push(newMessageData);
+      res.status(200).send({
+        updatedTicket: ticket,
+      });
+    } else {
+      res.status(404).send({
+        message: `Ticket with id ${ticketId} not found`,
+      });
+    }
   }
-});
+);
 
 // Admin routes - Service solutions prices
 app.get("/backoffice/solutions", (req, res) => {
@@ -1418,7 +1571,7 @@ app.post(
     const newProj = {
       ...projectData,
       projectId: Math.floor(Math.random() * 50) + 50,
-      lastModified: new Date().toISOString(),
+      lastModified: new Date().toISOString().slice(0, 10),
       userFileBuffer: file ? file.buffer : null,
       userFileName: file ? file.originalname : null,
       userFileId: fileId,
@@ -1539,6 +1692,153 @@ app.get("/frontoffice/:userId/projects", (req, res) => {
     },
   });
 });
+
+// user routes - ticket
+app.get("/frontoffice/tickets/:userId", (req, res) => {
+  const { page = 1, status, category, companyName, date } = req.query;
+  const limit = 4;
+  const userTickets = allTickets.filter(
+    (ticket) => ticket.userId === Number(req.params.userId)
+  );
+
+  let filteredTickets = userTickets;
+  console.log("userTickets", userTickets);
+
+  filteredTickets = userTickets.filter((ticket) => {
+    return (
+      (status !== "all" ? ticket.status === status : true) &&
+      (category !== "all" ? ticket.category === category : true) &&
+      (companyName !== "all" ? ticket.companyName === companyName : true) &&
+      (date !== "all" ? ticket.date === date : true)
+    );
+  });
+
+  const resultsCount = filteredTickets.length;
+  const totalPages = Math.ceil(resultsCount / limit);
+  const validPage = Math.max(1, Math.min(Number(page), totalPages));
+
+  const offset = (validPage - 1) * limit;
+  const paginatedResults = filteredTickets.slice(offset, offset + limit);
+
+  res.status(200).send({
+    data: paginatedResults,
+    notFilteredData: userTickets,
+    pagination: {
+      activePage: Number(page),
+      itemsPerPage: limit,
+      totalPages: totalPages,
+      totalItems: resultsCount,
+    },
+  });
+});
+
+app.get("/frontoffice/tickets/:userId/:id", (req, res) => {
+  const { userId, id: ticketId } = req.params;
+  const ticket = allTickets.find(
+    (ticket) =>
+      ticket.userId === Number(userId) && ticket.id === Number(ticketId)
+  );
+  res.status(200).send(ticket);
+});
+
+app.post(
+  "/frontoffice/tickets/:userId/:id/messages",
+  upload.single("file"),
+  (req, res) => {
+    const { userId, id: ticketId } = req.params;
+    const messageData = req.body;
+    const file = req.file;
+    const fileId = Math.floor(Math.random() * 100);
+
+    if (file) {
+      ticketFileStorage[fileId] = {
+        ticketFileBuffer: file.buffer,
+        ticketFileName: file.originalname,
+        ticketFileId: fileId,
+      };
+    }
+    // questa chiamata deve aggiungere una nuova riga alla tabella tickets_messages associando il messaggio al ticket con id ticketId
+    // post o put?
+    const ticket = allTickets.find(
+      (item) => item.userId === Number(userId) && item.id === Number(ticketId)
+    );
+    const newMessageData = {
+      ...messageData,
+      ticketFileBuffer: file ? file.buffer : null,
+      ticketFileName: file ? file.originalname : null,
+      ticketFileId: file ? fileId : null,
+    };
+
+    if (ticket) {
+      console.log("newMessageData", newMessageData);
+      ticket.messages.push(newMessageData);
+      res.status(200).send({
+        updatedTicket: ticket,
+      });
+    } else {
+      res.status(404).send({
+        message: `Ticket with id ${ticketId} not found`,
+      });
+    }
+  }
+);
+
+app.post(
+  "/frontoffice/tickets/:userId/:projectId/create",
+  upload.single("file"),
+  (req, res) => {
+    const { userId, projectId } = req.params;
+    let ticketData = req.body;
+    const file = req.file;
+    const fileId = Math.floor(Math.random() * 100);
+    if (file) {
+      //salvo i dati del file in userTicketFileStorage (provvisoriamente)
+      userTicketFileStorage[fileId] = {
+        userFileBuffer: file.buffer,
+        userFileName: file.originalname,
+        userFileId: fileId,
+      };
+      console.log("fileId uplopaded:", fileId);
+    }
+
+    const user = allSlavesData.find((item) => item.id === Number(userId));
+    const newTicket = {
+      ...ticketData,
+      id: Math.floor(Math.random() * 50) + 50,
+      userId: Number(userId),
+      companyName: user.companyName,
+      projectId: projectId,
+      messages: [],
+      date: new Date().toISOString().slice(0, 10),
+      lastModified: new Date().toISOString().slice(0, 10),
+      userAttachments: [
+        {
+          userFileBuffer: file ? file.buffer : null,
+          userFileName: file ? file.originalname : null,
+          userFileId: fileId,
+        },
+      ],
+      status: "open",
+    };
+
+    if (user) {
+      user.projects
+        .find((item) => item.projectId === Number(projectId))
+        .tickets.push(newTicket.id);
+      console.log("new ticket added:", newTicket);
+
+      res.status(200).send({
+        ticketId: newTicket.id,
+      });
+
+      allTickets.push(newTicket);
+    } else {
+      res.status(404).send({
+        message: `User with id ${userId} not found`,
+      });
+    }
+  }
+);
 
 // user order credits
 // quando lo user conferma il numero di crediti da acquistare, in backend si crea un ordine con un orderId
