@@ -4,17 +4,17 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const { v4: uuidv4 } = require("uuid");
 const multer = require("multer");
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 app.use(cookieParser());
 let cors = require("cors");
-const filePath = path.join(__dirname, 'faqData.json');
+const filePath = path.join(__dirname, "faqData.json");
 
 // Funzione per caricare le FAQ dal file JSON
 function loadFaqData() {
-  const data = fs.readFileSync(filePath, 'utf8');
+  const data = fs.readFileSync(filePath, "utf8");
   return JSON.parse(data);
 }
 
@@ -829,10 +829,8 @@ const pricingCredits = [
 const orders = [];
 
 // per simulare upload e downolad dei file
-const userFileStorage = {};
-const adminFileStorage = {};
-const ticketFileStorage = {};
-const userTicketFileStorage = {};
+
+const fileStorage = {};
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -841,9 +839,12 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+let faqData = loadFaqData();
+
 const userData = {
   userId: 1,
-  role: "admin",
+  role: "user",
   designId: 1,
   firstName: "Mario",
   lastName: "Rossi",
@@ -890,71 +891,22 @@ app.put(`/user/:userId`, (req, res) => {
   });
 });
 
-
-
-let faqData = loadFaqData();
-
-// GET /frontoffice/faq
-app.get("/frontoffice/faq", (req, res) => {
-  const { title, description, faqList } = faqData;
-  res.status(200).send({
-    title,
-    description,
-    faqList: faqList.map(faq => ({
-      question: faq.question,
-      answer: faq.answer,
-    })),
-  });
-});
-
-// GET /backoffice/faq
-app.get("/backoffice/faq", (req, res) => {
-  const { title, description, faqList } = faqData;
-  res.status(200).send({
-    title,
-    description,
-    faqList,
-  });
-});
-
-// CREATE FAQ
-app.post("/faq", (req, res) => {
-  const newFaq = {
-    id: faqData.faqList.length ? faqData.faqList[faqData.faqList.length - 1].id + 1 : 0, 
-    question: req.body.question,
-    answer: req.body.answer,
-  };
-  faqData.faqList.push(newFaq);
-  saveFaqData(faqData); 
-  res.status(201).send(newFaq);
-});
-
-// UPDATE FAQ
-app.put("/faq/:id", (req, res) => {
-  const faqId = parseInt(req.params.id, 10);
-  const index = faqData.faqList.findIndex(faq => faq.id === faqId);
-  if (index !== -1) {
-    faqData.faqList[index] = { ...faqData.faqList[index], ...req.body };
-    saveFaqData(faqData); 
-    res.status(200).send(faqData.faqList[index]);
+// Download file
+app.get(`/export/:fileId`, (req, res) => {
+  const { fileId } = req.params;
+  const storedFile = fileStorage[fileId];
+  if (storedFile) {
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="${encodeURIComponent(storedFile.fileName)}"`
+    );
+    res.setHeader("Content-Type", "application/octet-stream");
+    res.setHeader("Access-Control-Expose-Headers", "Content-Disposition"); // MOLTO IMPORTANTE
+    res.send(storedFile.fileBuffer);
   } else {
-    res.status(404).send({ message: "FAQ not found" });
+    res.status(404).send({ error: "File not found" });
   }
 });
-
-// DELETE FAQ
-app.delete("/faq/:id", (req, res) => {
-  const faqId = parseInt(req.params.id, 10); 
-  const initialLength = faqData.faqList.length;
-  faqData.faqList = faqData.faqList.filter(faq => faq.id !== faqId);
-  if (faqData.faqList.length < initialLength) {
-    saveFaqData(faqData); 
-    res.status(200).send({ message: "FAQ deleted successfully" });
-  } else {
-    res.status(404).send({ message: "FAQ not found" });
-  }
-});
-
 
 // LOGIN/REGISTER
 app.post("/login", (req, res) => {
@@ -1193,10 +1145,10 @@ app.put(
 
     const fileId = Math.floor(Math.random() * 100);
     if (file) {
-      adminFileStorage[fileId] = {
-        adminFileBuffer: file.buffer,
-        adminFileName: file.originalname,
-        adminFileId: fileId,
+      fileStorage[fileId] = {
+        fileBuffer: file.buffer,
+        fileName: file.originalname,
+        fileId: fileId,
       };
     }
 
@@ -1323,10 +1275,10 @@ app.post(
     const fileId = Math.floor(Math.random() * 100);
 
     if (file) {
-      ticketFileStorage[fileId] = {
-        ticketFileBuffer: file.buffer,
-        ticketFileName: file.originalname,
-        ticketFileId: fileId,
+      fileStorage[fileId] = {
+        fileBuffer: file.buffer,
+        fileName: file.originalname,
+        fileId: fileId,
       };
     }
     // questa chiamata deve aggiungere una nuova riga alla tabella tickets_messages associando il messaggio al ticket con id ticketId
@@ -1356,6 +1308,56 @@ app.post(
 // Admin routes - Service solutions prices
 app.get("/backoffice/solutions", (req, res) => {
   res.status(200).send(allSolutions);
+});
+
+// Admin routes - faq
+app.get("/backoffice/faq", (req, res) => {
+  const { title, description, faqList } = faqData;
+  res.status(200).send({
+    title,
+    description,
+    faqList,
+  });
+});
+
+// CREATE FAQ
+app.post("/faq", (req, res) => {
+  const newFaq = {
+    id: faqData.faqList.length
+      ? faqData.faqList[faqData.faqList.length - 1].id + 1
+      : 0,
+    question: req.body.question,
+    answer: req.body.answer,
+  };
+  faqData.faqList.push(newFaq);
+  saveFaqData(faqData);
+  res.status(201).send(newFaq);
+});
+
+// UPDATE FAQ
+app.put("/faq/:id", (req, res) => {
+  const faqId = parseInt(req.params.id, 10);
+  const index = faqData.faqList.findIndex((faq) => faq.id === faqId);
+  if (index !== -1) {
+    faqData.faqList[index] = { ...faqData.faqList[index], ...req.body };
+    saveFaqData(faqData);
+    res.status(200).send(faqData.faqList[index]);
+  } else {
+    res.status(404).send({ message: "FAQ not found" });
+  }
+});
+
+// DELETE FAQ
+app.delete("/faq/:id", (req, res) => {
+  const faqId = parseInt(req.params.id, 10);
+  const initialLength = faqData.faqList.length;
+  faqData.faqList = faqData.faqList.filter((faq) => faq.id !== faqId);
+  if (faqData.faqList.length < initialLength) {
+    saveFaqData(faqData);
+    res.status(200).send({ message: "FAQ deleted successfully" });
+  } else {
+    res.status(404).send({ message: "FAQ not found" });
+  }
 });
 
 // USER ROUTES
@@ -1582,11 +1584,11 @@ app.post(
     const file = req.file;
     const fileId = Math.floor(Math.random() * 100);
     if (file) {
-      //salvo i dati del file in userFileStorage (provvisoriamente)
-      userFileStorage[fileId] = {
-        userFileBuffer: file.buffer,
-        userFileName: file.originalname,
-        userFileId: fileId,
+      //salvo i dati del file in fileStorage (provvisoriamente)
+      fileStorage[fileId] = {
+        fileBuffer: file.buffer,
+        fileName: file.originalname,
+        fileId: fileId,
       };
       console.log("fileId uplopaded:", fileId);
     }
@@ -1617,22 +1619,6 @@ app.post(
     }
   }
 );
-
-// user routes - dettaglio progetto
-app.get("/frontoffice/project/:projectId/download/:fileId", (req, res) => {
-  const fileId = req.params.fileId;
-  const file = userFileStorage[fileId];
-  console.log("file downloaded:", file);
-  if (file) {
-    res.setHeader(
-      "Content-Disposition",
-      `attachment; filename=${file.userFileName}`
-    );
-    res.send(file.userFileBuffer);
-  } else {
-    res.status(404).send("File not found");
-  }
-});
 
 app.get("/frontoffice/project/:userId/:projectId", (req, res) => {
   const { userId, projectId } = req.params;
@@ -1775,10 +1761,10 @@ app.post(
     const fileId = Math.floor(Math.random() * 100);
 
     if (file) {
-      ticketFileStorage[fileId] = {
-        ticketFileBuffer: file.buffer,
-        ticketFileName: file.originalname,
-        ticketFileId: fileId,
+      fileStorage[fileId] = {
+        fileBuffer: file.buffer,
+        fileName: file.originalname,
+        fileId: fileId,
       };
     }
     // questa chiamata deve aggiungere una nuova riga alla tabella tickets_messages associando il messaggio al ticket con id ticketId
@@ -1816,11 +1802,11 @@ app.post(
     const file = req.file;
     const fileId = Math.floor(Math.random() * 100);
     if (file) {
-      //salvo i dati del file in userTicketFileStorage (provvisoriamente)
-      userTicketFileStorage[fileId] = {
-        userFileBuffer: file.buffer,
-        userFileName: file.originalname,
-        userFileId: fileId,
+      //salvo i dati del file in fileStorage (provvisoriamente)
+      fileStorage[fileId] = {
+        fileBuffer: file.buffer,
+        fileName: file.originalname,
+        fileId: fileId,
       };
       console.log("fileId uplopaded:", fileId);
     }
@@ -1898,6 +1884,19 @@ app.put("/frontoffice/orders/:orderId/complete", (req, res) => {
       message: `Order with id ${orderId} not found`,
     });
   }
+});
+
+// user routes - faq
+app.get("/frontoffice/faq", (req, res) => {
+  const { title, description, faqList } = faqData;
+  res.status(200).send({
+    title,
+    description,
+    faqList: faqList.map((faq) => ({
+      question: faq.question,
+      answer: faq.answer,
+    })),
+  });
 });
 
 app.listen(port, () => {
