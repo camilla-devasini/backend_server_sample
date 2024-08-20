@@ -57,6 +57,8 @@ const allSlavesData = [
         gearbox: "automatic",
         generation: "F20",
         readingMethod: "Magicmotorsport",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
         services:
           '[{"id": 1, "name": "DTC", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
         dtc: ["P1234", "P2345"],
@@ -81,6 +83,8 @@ const allSlavesData = [
         gearbox: "automatic",
         generation: "F20",
         readingMethod: "Magicmotorsport",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
         services:
           '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
         dtc: [],
@@ -105,10 +109,12 @@ const allSlavesData = [
         gearbox: "automatic",
         generation: "F20",
         readingMethod: "Magicmotorsport",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
         services:
           '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
         dtc: [],
-        status: "new",
+        status: "inProgress",
         lastModified: "2021-10-10",
         userFileBuffer: null,
         userFileName: "FileName.zip",
@@ -117,6 +123,58 @@ const allSlavesData = [
         adminFileName: "FileName.zip",
         adminFileId: 52,
         tickets: [1, 2, 3],
+      },
+      {
+        projectId: 4,
+        type: "Autovettura",
+        brand: "BMW",
+        model: "500",
+        engine: "118i",
+        engineHp: "200",
+        year: "2010",
+        gearbox: "automatic",
+        generation: "F20",
+        readingMethod: "Magicmotorsport",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
+        services:
+          '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: [],
+        status: "pending",
+        lastModified: "2021-10-10",
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
+        tickets: [],
+      },
+      {
+        projectId: 5,
+        type: "Autovettura",
+        brand: "BMW",
+        model: "500",
+        engine: "118i",
+        engineHp: "200",
+        year: "2010",
+        gearbox: "automatic",
+        generation: "F20",
+        readingMethod: "Magicmotorsport",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
+        services:
+          '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
+        dtc: [],
+        status: "completed",
+        lastModified: "2021-10-10",
+        userFileBuffer: null,
+        userFileName: "FileName.zip",
+        userFileId: 43,
+        adminFileBuffer: null,
+        adminFileName: "FileName.zip",
+        adminFileId: 52,
+        tickets: [],
       },
     ],
   },
@@ -149,6 +207,8 @@ const allSlavesData = [
         gearbox: "automatic",
         generation: "F20",
         readingMethod: "Magicmotorsport",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
         services:
           '[{"id": 1, "name": "DTC", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
         dtc: ["P1234", "P2345"],
@@ -173,6 +233,8 @@ const allSlavesData = [
         gearbox: "automatic",
         generation: "F20",
         readingMethod: "Magicmotorsport",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
         services:
           '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
         dtc: [],
@@ -197,6 +259,8 @@ const allSlavesData = [
         gearbox: "automatic",
         generation: "F20",
         readingMethod: "Magicmotor",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
         services:
           '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
         dtc: [],
@@ -241,6 +305,8 @@ const allSlavesData = [
         gearbox: "automatic",
         generation: "F20",
         readingMethod: "Magicmotorsport",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
         services:
           '[{"id": 1, "name": "DTC", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
         dtc: ["P1234", "P2345"],
@@ -265,6 +331,8 @@ const allSlavesData = [
         gearbox: "automatic",
         generation: "F20",
         readingMethod: "Magicmotorsport",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
         services:
           '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
         dtc: [],
@@ -289,6 +357,8 @@ const allSlavesData = [
         gearbox: "automatic",
         generation: "F20",
         readingMethod: "Magicmotor",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
         services:
           '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
         dtc: [],
@@ -334,6 +404,8 @@ const allSlavesData = [
         gearbox: "automatic",
         generation: "F20",
         readingMethod: "Magicmotorsport",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
         services:
           '[{"id": 1, "name": "DTC", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
         dtc: ["P1234", "P2345"],
@@ -358,6 +430,8 @@ const allSlavesData = [
         gearbox: "automatic",
         generation: "F20",
         readingMethod: "Magicmotorsport",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
         services:
           '[{"id": 1, "name": "DTC", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
         dtc: ["P1234", "P2345"],
@@ -382,6 +456,8 @@ const allSlavesData = [
         gearbox: "automatic",
         generation: "F20",
         readingMethod: "Magicmotor",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
         services:
           '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
         dtc: [],
@@ -427,6 +503,8 @@ const allSlavesData = [
         gearbox: "automatic",
         generation: "F20",
         readingMethod: "Magicmotorsport",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
         services:
           '[{"id": 1, "name": "DTC", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
         dtc: ["P1234", "P2345"],
@@ -451,6 +529,8 @@ const allSlavesData = [
         gearbox: "automatic",
         generation: "F20",
         readingMethod: "Magicmotorsport",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
         services:
           '[{"id": 1, "name": "DTC", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
         dtc: ["P1234", "P2345"],
@@ -475,6 +555,8 @@ const allSlavesData = [
         gearbox: "automatic",
         generation: "F20",
         readingMethod: "Magicmotor",
+        ecuBrand: "Bosch",
+        ecuName: "MEVD17.2",
         services:
           '[{"id": 1, "name": "DPF", "price": 100}, {"id": 2, "name": "ADV", "price": 150}]',
         dtc: [],
@@ -741,87 +823,61 @@ const allTickets = [
   },
 ];
 
-const allSolutions = [
-  { id: 1, name: "DPF", price: 100 },
-  { id: 2, name: "ADV", price: 150 },
-  { id: 3, name: "EGR", price: 200 },
-  { id: 4, name: "ADBLUE", price: 250 },
-  { id: 5, name: "SCR", price: 300 },
-  { id: 6, name: "FULL EMISSION", price: 100 },
-  { id: 7, name: "MAF", price: 150 },
-  { id: 8, name: "TVA", price: 200 },
-  { id: 9, name: "LAMBDA", price: 250 },
-  { id: 10, name: "O2", price: 300 },
-  { id: 11, name: "FLAPS", price: 100 },
-  { id: 12, name: "SWIRL", price: 150 },
-  { id: 13, name: "NOX", price: 200 },
-  { id: 14, name: "SPEED LIMIT", price: 250 },
-  { id: 15, name: "VMAX", price: 300 },
-  { id: 16, name: "GPF", price: 100 },
-  { id: 17, name: "OPF", price: 150 },
-  { id: 18, name: "IAT", price: 200 },
-  { id: 19, name: "HOT START", price: 250 },
-  { id: 20, name: "WATER PUMP", price: 300 },
-  { id: 21, name: "CATALYST", price: 100 },
-  { id: 22, name: "SPORT DISPLAY CALIBRATION", price: 150 },
-  { id: 23, name: "EXHAUST FLAP", price: 200 },
-  { id: 24, name: "EVAP", price: 250 },
-  { id: 25, name: "TORQUE MONITORING", price: 300 },
-  { id: 26, name: "START STOP", price: 100 },
-  { id: 27, name: "READINESS CALIBRATION", price: 150 },
-  { id: 28, name: "AGS", price: 200 },
-  { id: 29, name: "COLD START SOUND", price: 250 },
-  { id: 30, name: "REV LIMITER", price: 300 },
-  { id: 31, name: "OIL PRESSURE", price: 100 },
-  { id: 32, name: "TPROT", price: 150 },
-  { id: 33, name: "KICKDOWN", price: 200 },
-  { id: 34, name: "ACT", price: 250 },
-  { id: 35, name: "STAGE 1", price: 300 },
-  { id: 36, name: "STAGE 2", price: 100 },
-  { id: 37, name: "STAGE 3", price: 150 },
-  { id: 38, name: "DTC", price: 250 },
+let allSolutions = [
+  { id: 1, name: "DPF", price: 10 },
+  { id: 2, name: "ADV", price: 10 },
+  { id: 3, name: "EGR", price: 10 },
+  { id: 4, name: "ADBLUE", price: 10 },
+  { id: 5, name: "SCR", price: 10 },
+  { id: 6, name: "FULL EMISSION", price: 10 },
+  { id: 7, name: "MAF", price: 10 },
+  { id: 8, name: "TVA", price: 10 },
+  { id: 9, name: "LAMBDA", price: 10 },
+  { id: 10, name: "O2", price: 10 },
+  { id: 11, name: "FLAPS", price: 10 },
+  { id: 12, name: "SWIRL", price: 10 },
+  { id: 13, name: "NOX", price: 10 },
+  { id: 14, name: "SPEED LIMIT", price: 10 },
+  { id: 15, name: "VMAX", price: 10 },
+  { id: 16, name: "GPF", price: 10 },
+  { id: 17, name: "OPF", price: 10 },
+  { id: 18, name: "IAT", price: 10 },
+  { id: 19, name: "HOT START", price: 10 },
+  { id: 20, name: "WATER PUMP", price: 10 },
+  { id: 21, name: "CATALYST", price: 10 },
+  { id: 22, name: "SPORT DISPLAY CALIBRATION", price: 10 },
+  { id: 23, name: "EXHAUST FLAP", price: 10 },
+  { id: 24, name: "EVAP", price: 10 },
+  { id: 25, name: "TORQUE MONITORING", price: 10 },
+  { id: 26, name: "START STOP", price: 10 },
+  { id: 27, name: "READINESS CALIBRATION", price: 10 },
+  { id: 28, name: "AGS", price: 10 },
+  { id: 29, name: "COLD START SOUND", price: 10 },
+  { id: 30, name: "REV LIMITER", price: 10 },
+  { id: 31, name: "OIL PRESSURE", price: 10 },
+  { id: 32, name: "TPROT", price: 10 },
+  { id: 33, name: "KICKDOWN", price: 10 },
+  { id: 34, name: "ACT", price: 10 },
+  { id: 35, name: "STAGE 1", price: 10 },
+  { id: 36, name: "STAGE 2", price: 10 },
+  { id: 37, name: "STAGE 3", price: 10 },
+  { id: 38, name: "DTC", price: 10 },
 ];
 
 // fasce di sconto per i crediti
-const pricingCredits = [
+let pricingCredits = [
   {
     id: 1,
-    minTier: 50,
-    maxTier: 450,
-    unitPrice: 0.2,
-    discountPercentage: 0,
+    minTier: 0,
+    maxTier: 100,
+    unitPrice: 4,
     isSpecial: false,
   },
   {
     id: 2,
-    minTier: 500,
-    maxTier: 500,
-    unitPrice: 0.2,
-    discountPercentage: 12.0,
-    isSpecial: true,
-  },
-  {
-    id: 3,
-    minTier: 550,
-    maxTier: 750,
-    unitPrice: 0.2,
-    discountPercentage: 10.0,
-    isSpecial: false,
-  },
-  {
-    id: 4,
-    minTier: 800,
-    maxTier: 950,
-    unitPrice: 0.2,
-    discountPercentage: 15.0,
-    isSpecial: false,
-  },
-  {
-    id: 5,
-    minTier: 1000,
-    maxTier: 1000,
-    unitPrice: 0.2,
-    discountPercentage: 20.0,
+    minTier: 101,
+    maxTier: 200,
+    unitPrice: 3,
     isSpecial: true,
   },
 ];
@@ -842,9 +898,9 @@ app.get("/", (req, res) => {
 
 let faqData = loadFaqData();
 
-const userData = {
+let userData = {
   userId: 1,
-  role: "user",
+  role: "admin",
   designId: 1,
   firstName: "Mario",
   lastName: "Rossi",
@@ -856,6 +912,8 @@ const userData = {
   vatNumber: "12345678901",
   phone: "3334445555",
   credits: 1000,
+  isSlave: true, // in fase di registrazione ha spuntato la checkbox "I am a slave"
+  isFirstAccess: true, // sta facendo accesso con la password temporanea
 };
 
 // COMMON ROUTES
@@ -986,6 +1044,23 @@ app.post("/register", (req, res) => {
 
   //   return password;
   // };
+});
+
+app.post("/change-password", (req, res) => {
+  const { email, temporaryPassword, newPassword, salveCode } = req.body;
+  if (email === "test@test.com" && temporaryPassword === "qqqqq") {
+    //questa chiamata verifica che l'utente abbia inserito corretta email e vecchia password,
+    // salva la nuova password associata alla email e poi modifica la scheda utente, settando isFirstAccess === false
+    userData = {
+      ...userData,
+      isFirstAccess: false,
+    };
+    res.status(200).send({
+      ...userData,
+    });
+  } else {
+    res.status(401).send({ error: "Unauthorized user" });
+  }
 });
 
 // ADMIN ROUTES
@@ -1206,6 +1281,121 @@ app.put(`/backoffice/slaves/:slaveId`, (req, res) => {
   }
 });
 
+// Admin routes - counters: per avere i conteggi da mostrare nella dashboard come dati di recap
+app.get("/backoffice/projects/counter", (req, res) => {
+  try {
+    const totalProjects = allSlavesData.reduce((acc, curr) => {
+      return acc + curr.projects.length;
+    }, 0);
+
+    const totalPendingProjects = allSlavesData.reduce((acc, curr) => {
+      return (
+        acc +
+        curr.projects.filter((project) => project.status === "pending").length
+      );
+    }, 0);
+    const totalRefundedProjects = allSlavesData.reduce((acc, curr) => {
+      return (
+        acc +
+        curr.projects.filter((project) => project.status === "refunded").length
+      );
+    }, 0);
+    const totalFailedProjects = allSlavesData.reduce((acc, curr) => {
+      return (
+        acc +
+        curr.projects.filter((project) => project.status === "failed").length
+      );
+    }, 0);
+    const totalInProgressProjects = allSlavesData.reduce((acc, curr) => {
+      return (
+        acc +
+        curr.projects.filter((project) => project.status === "inProgress")
+          .length
+      );
+    }, 0);
+    const totalCompletedProjects = allSlavesData.reduce((acc, curr) => {
+      return (
+        acc +
+        curr.projects.filter((project) => project.status === "completed").length
+      );
+    }, 0);
+
+    const totalNewProjects = allSlavesData.reduce((acc, curr) => {
+      return (
+        acc + curr.projects.filter((project) => project.status === "new").length
+      );
+    }, 0);
+
+    return res.status(200).send({
+      totalProjects: totalProjects,
+      totalNewProjects: totalNewProjects,
+      totalRefundedProjects: totalRefundedProjects,
+      totalFailedProjects: totalFailedProjects,
+      totalInProgressProjects: totalInProgressProjects,
+      totalPendingProjects: totalPendingProjects,
+      totalCompletedProjects: totalCompletedProjects,
+    });
+  } catch (error) {
+    return res.status(500).send({ error: error.message });
+  }
+});
+
+// Per il grafico della dashboard Serve anche una chiamata che faccia GROUP BY delle lavorazioni completate per mese per gli ultimi 6 mesi
+
+app.get("/backoffice/tickets/counter", (req, res) => {
+  try {
+    const totalOpenTickets = allTickets.filter(
+      (ticket) => ticket.status === "open"
+    ).length;
+    const totalInProgressTickets = allTickets.filter(
+      (ticket) => ticket.status === "inProgress"
+    ).length;
+    const totalCompletedTickets = allTickets.filter(
+      (ticket) => ticket.status === "completed"
+    ).length;
+    const totalClosedTickets = allTickets.filter(
+      (ticket) => ticket.status === "closed"
+    ).length;
+    return res.status(200).send({
+      totalTickets: allTickets.length,
+      totalOpenTickets: totalOpenTickets,
+      totalInProgressTickets: totalInProgressTickets,
+      totalCompletedTickets: totalCompletedTickets,
+      totalClosedTickets: totalClosedTickets,
+    });
+  } catch (error) {
+    return res.status(500).send({ error: error.message });
+  }
+});
+
+app.get("/backoffice/slaves-counter", (req, res) => {
+  try {
+    const totalUsers = allSlavesData.length;
+    const totalActiveUsers = allSlavesData.filter(
+      (slave) => slave.status === "active"
+    ).length;
+    const totalPendingUsers = allSlavesData.filter(
+      (slave) => slave.status === "pending"
+    ).length;
+    const totalBannedUsers = allSlavesData.filter(
+      (slave) => slave.status === "banned"
+    ).length;
+    console.log("totalUsers", totalUsers);
+    console.log("totalActiveUsers", totalActiveUsers);
+    console.log("totalPendingUsers", totalPendingUsers);
+    console.log("totalBannedUsers", totalBannedUsers);
+
+    return res.status(200).send({
+      totalSlaves: totalUsers,
+      totalActiveUsers: totalActiveUsers,
+      totalPendingUsers: totalPendingUsers,
+      totalBannedUsers: totalBannedUsers,
+    });
+  } catch (error) {
+    return res.status(500).send({ error: error.message });
+  }
+});
+
 // Admin routes - Tickets
 app.get("/backoffice/tickets", (req, res) => {
   const { page = 1, status, category, companyName, date } = req.query;
@@ -1305,9 +1495,26 @@ app.post(
   }
 );
 
-// Admin routes - Service solutions prices
+// Admin routes - Pricing Services solutionss
 app.get("/backoffice/solutions", (req, res) => {
   res.status(200).send(allSolutions);
+});
+
+app.put("/backoffice/solutions", (req, res) => {
+  let updatedSolutions = req.body;
+  allSolutions = updatedSolutions;
+  res.status(200).send(allSolutions);
+});
+
+// Admin routes - Pricing credits
+app.get("/backoffice/credits", (req, res) => {
+  res.status(200).send(pricingCredits);
+});
+
+app.put("/backoffice/credits", (req, res) => {
+  let updatedCredits = req.body;
+  pricingCredits = updatedCredits;
+  res.status(200).send(pricingCredits);
 });
 
 // Admin routes - faq
@@ -1320,35 +1527,52 @@ app.get("/backoffice/faq", (req, res) => {
   });
 });
 
-// CREATE FAQ
-app.post("/faq", (req, res) => {
+// Admin routes - create faq
+app.post("/backoffice/faq", (req, res) => {
+  const { question, answer } = req.body;
   const newFaq = {
     id: faqData.faqList.length
       ? faqData.faqList[faqData.faqList.length - 1].id + 1
       : 0,
-    question: req.body.question,
-    answer: req.body.answer,
+    question: question,
+    answer: answer,
   };
   faqData.faqList.push(newFaq);
   saveFaqData(faqData);
   res.status(201).send(newFaq);
 });
 
-// UPDATE FAQ
-app.put("/faq/:id", (req, res) => {
+// Admin routes - update faq
+app.put("/backoffice/faq/:id", (req, res) => {
   const faqId = parseInt(req.params.id, 10);
+  const { question, answer } = req.body;
   const index = faqData.faqList.findIndex((faq) => faq.id === faqId);
   if (index !== -1) {
-    faqData.faqList[index] = { ...faqData.faqList[index], ...req.body };
+    faqData.faqList[index] = {
+      ...faqData.faqList[index],
+      question: question,
+      answer: answer,
+    };
     saveFaqData(faqData);
     res.status(200).send(faqData.faqList[index]);
   } else {
     res.status(404).send({ message: "FAQ not found" });
   }
+
+  // const { newFaqData } = req.body;
+  // console.log("newFaqData", req.body);
+  // const index = faqData.faqList.findIndex((faq) => faq.id === faqId);
+  // if (index !== -1) {
+  //   faqData.faqList[index] = { ...faqData.faqList[index], ...newFaqData };
+  //   saveFaqData(faqData);
+  //   res.status(200).send(faqData.faqList[index]);
+  // } else {
+  //   res.status(404).send({ message: "FAQ not found" });
+  // }
 });
 
-// DELETE FAQ
-app.delete("/faq/:id", (req, res) => {
+// Admin routes - delete faq
+app.delete("/backoffice/faq/:id", (req, res) => {
   const faqId = parseInt(req.params.id, 10);
   const initialLength = faqData.faqList.length;
   faqData.faqList = faqData.faqList.filter((faq) => faq.id !== faqId);
@@ -1501,6 +1725,29 @@ const readingMethods = [
   { id: 8, name: "WinOLS" },
   { id: 9, name: "Swiftec" },
 ];
+const ecuBrands = [
+  { id: 1, name: "Bosch" },
+  { id: 2, name: "Siemens" },
+  { id: 3, name: "Delphi" },
+  { id: 4, name: "Denso" },
+  { id: 5, name: "Marelli" },
+  { id: 6, name: "Continental" },
+  { id: 7, name: "Mitsubishi" },
+];
+const ecuNames = [
+  { id: 1, ecuBrandId: 1, name: "EDC15" },
+  { id: 2, ecuBrandId: 1, name: "EDC16" },
+  { id: 3, ecuBrandId: 2, name: "EDC17" },
+  { id: 4, ecuBrandId: 2, name: "SID201" },
+  { id: 5, ecuBrandId: 2, name: "SID202" },
+  { id: 7, ecuBrandId: 3, name: "DCM3.7" },
+  { id: 8, ecuBrandId: 3, name: "DCM3.7AP" },
+  { id: 9, ecuBrandId: 4, name: "DENSO" },
+  { id: 10, ecuBrandId: 5, name: "MJD" },
+  { id: 11, ecuBrandId: 6, name: "SIM2K" },
+  { id: 12, ecuBrandId: 6, name: "SIM4K" },
+  { id: 13, ecuBrandId: 7, name: "SIM8K" },
+];
 
 // data per popolare i select
 // First call: Get all TYPES of vehicles
@@ -1572,6 +1819,22 @@ app.get("/frontoffice/project/years/:generationId", (req, res) => {
 
 app.get("/frontoffice/project/readingMethods", (req, res) => {
   res.status(200).send(readingMethods);
+});
+
+app.get("/frontoffice/project/ecuBrands", (req, res) => {
+  res.status(200).send(ecuBrands);
+});
+
+app.get("/frontoffice/project/ecuNames/:ecuBrandId", (req, res) => {
+  const { ecuBrandId } = req.params;
+  const filteredEcuNames = ecuNames.filter(
+    (ecu) => ecu.ecuBrandId === Number(ecuBrandId)
+  );
+  res.status(200).send(filteredEcuNames);
+});
+// user routes - lista delle solutions acquistabili con prezzo
+app.get("/frontoffice/solutions", (req, res) => {
+  res.status(200).send(allSolutions);
 });
 
 // user routes - creazione di un progetto
@@ -1738,6 +2001,16 @@ app.get("/frontoffice/tickets/:userId", (req, res) => {
       itemsPerPage: limit,
       totalPages: totalPages,
       totalItems: resultsCount,
+      totalOpenTickets: userTickets.filter((item) => item.status === "open")
+        .length,
+      totalInProgressTickets: userTickets.filter(
+        (item) => item.status === "inProgress"
+      ).length,
+      totalCompletedTickets: userTickets.filter(
+        (item) => item.status === "completed"
+      ).length,
+      totalClosedTickets: userTickets.filter((item) => item.status === "closed")
+        .length,
     },
   });
 });
@@ -1851,6 +2124,10 @@ app.post(
 );
 
 // user order credits
+app.get("/frontoffice/credits", (req, res) => {
+  res.status(200).send(pricingCredits);
+});
+
 // quando lo user conferma il numero di crediti da acquistare, in backend si crea un ordine con un orderId
 app.post("/frontoffice/orders/:userId/create", (req, res) => {
   const { userId } = req.params;
@@ -1890,8 +2167,6 @@ app.put("/frontoffice/orders/:orderId/complete", (req, res) => {
 app.get("/frontoffice/faq", (req, res) => {
   const { title, description, faqList } = faqData;
   res.status(200).send({
-    title,
-    description,
     faqList: faqList.map((faq) => ({
       question: faq.question,
       answer: faq.answer,

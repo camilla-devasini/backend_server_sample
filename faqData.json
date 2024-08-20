@@ -1,31 +1,19 @@
 {
-  "title": "Benvenuto nella sezione FAQ",
-  "description": "Qui potresti trovare quello che stai cercando.",
   "faqList": [
     {
-      "id": 0,
-      "question": "dddbvbvbvbvb fafafafafafafaf lklkl",
-      "answer": "111"
-    },
-    {
       "id": 1,
-      "question": "Come poss0????",
-      "answer": ""
+      "question": "Come posso contattare l'amministratore?",
+      "answer": "E' possibile aprire un ticket tramite l'apposito link presente all'interno del dettaglio della lavorazione."
     },
     {
       "id": 2,
-      "question": "Come posso",
-      "answer": ""
+      "question": "Domanda 2",
+      "answer": "Risposta 2"
     },
     {
       "id": 3,
-      "question": "sdaasdasd",
-      "answer": "asdasdasd"
-    },
-    {
-      "id": 4,
-      "question": "prova",
-      "answer": "risp"
+      "question": "Domanda 3",
+      "answer": "Risposta 3"
     }
   ]
 }
