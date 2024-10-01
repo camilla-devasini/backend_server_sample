@@ -3,17 +3,17 @@
     {
       "id": 1,
       "question": "Come posso contattare l'amministratore?",
-      "answer": "E' possibile aprire un ticket tramite l'apposito link presente all'interno del dettaglio della lavorazione."
+      "answer": "E' possibile aprire un ticket tramite l'apposito link presente all'interno del dettaglio della lavorazione. Ogni ticket viene associato alla lavorazione in corso e verrà visualizzato e risolto dall'amministratore, che fornirà spiegazioni e documentazione necessaria."
     },
     {
       "id": 2,
-      "question": "Domanda 2",
-      "answer": "Risposta 2"
+      "question": "Le transazioni di pagamento sono sicure?",
+      "answer": "Sì, le transazioni sono sicure e protette, tramite il sistema di pagamento Paypal, che garantisce la sicurezza dei dati e la protezione dell'acquirente."
     },
     {
       "id": 3,
-      "question": "Domanda 3",
-      "answer": "Risposta 3"
+      "question": "Come vengono trattati i miei dati personali?",
+      "answer": "I dati personali sono trattati nel rispetto della normativa vigente sulla privacy e del GDPR, e sono utilizzati esclusivamente per la gestione delle lavorazioni e per l'invio di comunicazioni relative al servizio."
     }
   ]
 }

@@ -31,9 +31,9 @@ const allSlavesData = [
   {
     id: 1,
     storeId: 1, // lo store Id indica l'admin a cui è associato lo slave
-    firstName: "Mario",
-    lastName: "Rossi",
-    email: "mario@rossi.com",
+    firstName: "John",
+    lastName: "Smith",
+    email: "john.smith@email.com",
     phone: "3348558857",
     companyName: "Auto23",
     address: "35 via bernardino",
@@ -75,8 +75,8 @@ const allSlavesData = [
       {
         projectId: 2,
         type: "Autovettura",
-        brand: "BMW",
-        model: "500",
+        brand: "Audi",
+        model: "XUIW",
         engine: "118i",
         engineHp: "200",
         year: "2010",
@@ -101,7 +101,7 @@ const allSlavesData = [
       {
         projectId: 3,
         type: "Autovettura",
-        brand: "BMW",
+        brand: "Fiat",
         model: "500",
         engine: "118i",
         engineHp: "200",
@@ -153,7 +153,7 @@ const allSlavesData = [
       {
         projectId: 5,
         type: "Autovettura",
-        brand: "BMW",
+        brand: "Fiat",
         model: "500",
         engine: "118i",
         engineHp: "200",
@@ -181,10 +181,10 @@ const allSlavesData = [
   {
     id: 2,
     storeId: 1, // lo store Id indica l'admin a cui è associato lo slave
-    firstName: "Giovanni",
-    lastName: "Verdi",
-    email: "giovanni@verdi.it",
-    companyName: "Autooos",
+    firstName: "Adam",
+    lastName: "Nikolson",
+    email: "adam@nikolson.it",
+    companyName: "AutoYls",
     address: "via Roma 2",
     city: "Milano",
     zipCode: "34483",
@@ -279,9 +279,9 @@ const allSlavesData = [
   {
     id: 3,
     storeId: 1, // lo store Id indica l'admin a cui è associato lo slave
-    firstName: "Luca",
-    lastName: "Gialli",
-    email: "luca@gialli.com",
+    firstName: "Josh",
+    lastName: "Mayer",
+    email: "josh@mayer.com",
     companyName: "Ciaociao",
     address: "via Lodi 1",
     city: "Roma",
@@ -377,9 +377,9 @@ const allSlavesData = [
   {
     id: 4,
     storeId: 1, // lo store Id indica l'admin a cui è associato lo slave
-    firstName: "Mario",
-    lastName: "Neri",
-    email: "mario@neri.it",
+    firstName: "Mike",
+    lastName: "Nelson",
+    email: "mike@nelson.it",
     companyName: "Autoyay",
     address: "via Garibaldi 11",
     city: "Padova",
@@ -476,9 +476,9 @@ const allSlavesData = [
   {
     id: 5,
     storeId: 1, // lo store Id indica l'admin a cui è associato lo slave
-    firstName: "Luca",
+    firstName: "Josh",
     lastName: "Viola",
-    email: "luca@viola.it",
+    email: "josh@viola.it",
     phone: "3348558857",
     companyName: "V-auto",
     address: "via Manzoni 45",
@@ -582,7 +582,7 @@ const allTickets = [
     companyName: "Auto23",
     status: "inProgress", // altri status: "open", "completed", "closed"
     category: "billing",
-    title: "Problema x",
+    title: "Necessità di assistenza per ...",
     description:
       "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i progressi?",
     date: "2024-07-05",
@@ -601,10 +601,10 @@ const allTickets = [
     id: 2,
     userId: 1,
     projectId: 1, // id della lavorazione collegata al ticket
-    companyName: "Auto23",
-    status: "closed", // altri status: "open", "completed", "closed"
+    companyName: "Smart Car",
+    status: "inProgress", // altri status: "open", "completed", "closed"
     category: "administrative",
-    title: "Problema Y",
+    title: "Necessità di assistenza per ...",
     description:
       "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i progressi?",
     date: "2024-07-05",
@@ -623,10 +623,10 @@ const allTickets = [
     id: 3,
     userId: 1,
     projectId: 1, // id della lavorazione collegata al ticket
-    companyName: "Auto23",
+    companyName: "Flash car",
     status: "open", // altri status: "open", "completed", "closed"
     category: "administrative",
-    title: "Problema Y",
+    title: "Necessità di assistenza per ...",
     description:
       "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i progressi?",
     date: "2024-07-05",
@@ -645,10 +645,10 @@ const allTickets = [
     id: 2,
     userId: 2,
     projectId: 2,
-    companyName: "Autooos",
+    companyName: "Speed Tuning",
     status: "open", // altri status: "inProgress", "completed", "closed"
     category: "technical",
-    title: "Problema y",
+    title: "Necessità di assistenza per ...",
     description:
       "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i miei progressi?",
     date: "2024-07-05",
@@ -681,10 +681,10 @@ const allTickets = [
     id: 3,
     userId: 3,
     projectId: 3,
-    companyName: "Ciaociao",
+    companyName: "Car Space",
     status: "completed", // altri status: "open", "inProgress", "closed"
     category: "technical",
-    title: "Problema z",
+    title: "Necessità di assistenza per ...",
     description:
       "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i miei progressi?",
     date: "2024-07-05",
@@ -717,10 +717,10 @@ const allTickets = [
     id: 4,
     userId: 3,
     projectId: 4,
-    companyName: "Ciaociao",
+    companyName: "Tuning now",
     status: "closed", // altri status: "open", "inProgress", "closed"
     category: "technical",
-    title: "Problema t",
+    title: "Necessità di assistenza per ...",
     description:
       "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i miei progressi?",
     date: "2024-07-05",
@@ -753,10 +753,10 @@ const allTickets = [
     id: 5,
     userId: 2,
     projectId: 5,
-    companyName: "Ciaociao",
+    companyName: "Extra Tuning",
     status: "closed", // altri status: "open", "inProgress", "closed"
     category: "technical",
-    title: "Problema t",
+    title: "Necessità di assistenza per ...",
     description:
       "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i miei progressi?",
     date: "2024-07-05",
@@ -789,10 +789,10 @@ const allTickets = [
     id: 6,
     userId: 2,
     projectId: 6,
-    companyName: "Ciaociao",
+    companyName: "Now Tuning",
     status: "closed", // altri status: "open", "inProgress", "closed"
     category: "technical",
-    title: "Problema t",
+    title: "Necessità di assistenza per ...",
     description:
       "Problema rilevato nell'ambito del caricamento del file. Ho riscontrato un errore di tipo x, come posso risolvere senza perdere i miei progressi?",
     date: "2024-07-05",
@@ -824,44 +824,44 @@ const allTickets = [
 ];
 
 let allSolutions = [
-  { id: 1, name: "DPF", price: 10 },
-  { id: 2, name: "ADV", price: 10 },
-  { id: 3, name: "EGR", price: 10 },
-  { id: 4, name: "ADBLUE", price: 10 },
-  { id: 5, name: "SCR", price: 10 },
-  { id: 6, name: "FULL EMISSION", price: 10 },
-  { id: 7, name: "MAF", price: 10 },
-  { id: 8, name: "TVA", price: 10 },
-  { id: 9, name: "LAMBDA", price: 10 },
-  { id: 10, name: "O2", price: 10 },
-  { id: 11, name: "FLAPS", price: 10 },
-  { id: 12, name: "SWIRL", price: 10 },
-  { id: 13, name: "NOX", price: 10 },
-  { id: 14, name: "SPEED LIMIT", price: 10 },
-  { id: 15, name: "VMAX", price: 10 },
-  { id: 16, name: "GPF", price: 10 },
-  { id: 17, name: "OPF", price: 10 },
-  { id: 18, name: "IAT", price: 10 },
-  { id: 19, name: "HOT START", price: 10 },
-  { id: 20, name: "WATER PUMP", price: 10 },
-  { id: 21, name: "CATALYST", price: 10 },
-  { id: 22, name: "SPORT DISPLAY CALIBRATION", price: 10 },
-  { id: 23, name: "EXHAUST FLAP", price: 10 },
-  { id: 24, name: "EVAP", price: 10 },
-  { id: 25, name: "TORQUE MONITORING", price: 10 },
-  { id: 26, name: "START STOP", price: 10 },
-  { id: 27, name: "READINESS CALIBRATION", price: 10 },
-  { id: 28, name: "AGS", price: 10 },
-  { id: 29, name: "COLD START SOUND", price: 10 },
-  { id: 30, name: "REV LIMITER", price: 10 },
-  { id: 31, name: "OIL PRESSURE", price: 10 },
-  { id: 32, name: "TPROT", price: 10 },
-  { id: 33, name: "KICKDOWN", price: 10 },
-  { id: 34, name: "ACT", price: 10 },
-  { id: 35, name: "STAGE 1", price: 10 },
-  { id: 36, name: "STAGE 2", price: 10 },
-  { id: 37, name: "STAGE 3", price: 10 },
-  { id: 38, name: "DTC", price: 10 },
+  { id: 1, name: "DPF", price: 50 },
+  { id: 2, name: "ADV", price: 25 },
+  { id: 3, name: "EGR", price: 60 },
+  { id: 4, name: "ADBLUE", price: 40 },
+  { id: 5, name: "SCR", price: 35 },
+  { id: 6, name: "FULL EMISSION", price: 100 },
+  { id: 7, name: "MAF", price: 25 },
+  { id: 8, name: "TVA", price: 35 },
+  { id: 9, name: "LAMBDA", price: 50 },
+  { id: 10, name: "O2", price: 15 },
+  { id: 11, name: "FLAPS", price: 55 },
+  { id: 12, name: "SWIRL", price: 68 },
+  { id: 13, name: "NOX", price: 36 },
+  { id: 14, name: "SPEED LIMIT", price: 50 },
+  { id: 15, name: "VMAX", price: 26 },
+  { id: 16, name: "GPF", price: 45 },
+  { id: 17, name: "OPF", price: 50 },
+  { id: 18, name: "IAT", price: 50 },
+  { id: 19, name: "HOT START", price: 100 },
+  { id: 20, name: "WATER PUMP", price: 70 },
+  { id: 21, name: "CATALYST", price: 60 },
+  { id: 22, name: "SPORT DISPLAY CALIBRATION", price: 55 },
+  { id: 23, name: "EXHAUST FLAP", price: 45 },
+  { id: 24, name: "EVAP", price: 68 },
+  { id: 25, name: "TORQUE MONITORING", price: 90 },
+  { id: 26, name: "START STOP", price: 80 },
+  { id: 27, name: "READINESS CALIBRATION", price: 80 },
+  { id: 28, name: "AGS", price: 90 },
+  { id: 29, name: "COLD START SOUND", price: 45 },
+  { id: 30, name: "REV LIMITER", price: 60 },
+  { id: 31, name: "OIL PRESSURE", price: 70 },
+  { id: 32, name: "TPROT", price: 80 },
+  { id: 33, name: "KICKDOWN", price: 50 },
+  { id: 34, name: "ACT", price: 100 },
+  { id: 35, name: "STAGE 1", price: 30 },
+  { id: 36, name: "STAGE 2", price: 30 },
+  { id: 37, name: "STAGE 3", price: 30 },
+  { id: 38, name: "DTC", price: 100 },
 ];
 
 // fasce di sconto per i crediti
@@ -902,10 +902,10 @@ let userData = {
   userId: 1,
   role: "admin",
   designId: 1,
-  firstName: "Mario",
-  lastName: "Rossi",
-  companyName: "Rossi srl",
-  email: "test@test.com",
+  firstName: "John",
+  lastName: "Smith",
+  companyName: "Smith srl",
+  email: "john.smith@email.com",
   address: "Via Roma 1",
   city: "Roma",
   zipcode: "00100",
@@ -918,6 +918,7 @@ let userData = {
 
 // COMMON ROUTES
 
+// OK
 app.get(`/user/:userId/settings`, (req, res) => {
   const userId = req.params.userId;
   res.status(200).send({
@@ -926,6 +927,7 @@ app.get(`/user/:userId/settings`, (req, res) => {
   });
 });
 
+// OK
 app.get(`/user/:userId`, (req, res) => {
   const userId = req.params.userId;
   res.status(200).send({
@@ -934,6 +936,7 @@ app.get(`/user/:userId`, (req, res) => {
   });
 });
 
+// OK
 app.put(`/user/:userId`, (req, res) => {
   const userId = req.params.userId;
   const userInfo = req.body;
@@ -950,6 +953,7 @@ app.put(`/user/:userId`, (req, res) => {
 });
 
 // Download file
+// TODO
 app.get(`/export/:fileId`, (req, res) => {
   const { fileId } = req.params;
   const storedFile = fileStorage[fileId];
@@ -967,12 +971,14 @@ app.get(`/export/:fileId`, (req, res) => {
 });
 
 // LOGIN/REGISTER
+
+// OK
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
   console.log(req.body);
   // se email e password sono uguali a test@test e pass123 ovvero quelli che ho impostato io come corretti
   // allora mi aspetto che il backend esegua una chiamata che restituisca i dati dell'utente e il suo jwt token
-  if (email === "test@test.com" && password === "qqqqq") {
+  if (email === "john.smith@email.com" && password === "ASDsder_!!12-3") {
     // creo il token jwt contenente userId e role
     const token = jwt.sign(userData, "my_secret_key", {
       expiresIn: "1h",
@@ -994,6 +1000,7 @@ app.post("/login", (req, res) => {
   }
 });
 
+// OK
 app.post(`/logout/${userData.userId}`, (req, res) => {
   res.clearCookie("token");
   res.status(200).send({
@@ -1001,6 +1008,7 @@ app.post(`/logout/${userData.userId}`, (req, res) => {
   });
 });
 
+// OK
 app.post("/register", (req, res) => {
   res.status(200).send({
     isRegistered: true,
@@ -1046,9 +1054,13 @@ app.post("/register", (req, res) => {
   // };
 });
 
+// OK
 app.post("/change-password", (req, res) => {
   const { email, temporaryPassword, newPassword, salveCode } = req.body;
-  if (email === "test@test.com" && temporaryPassword === "qqqqq") {
+  if (
+    email === "john.smith@email.com" &&
+    temporaryPassword === "ASDsder_!!12-3"
+  ) {
     //questa chiamata verifica che l'utente abbia inserito corretta email e vecchia password,
     // salva la nuova password associata alla email e poi modifica la scheda utente, settando isFirstAccess === false
     userData = {
@@ -1065,6 +1077,8 @@ app.post("/change-password", (req, res) => {
 
 // ADMIN ROUTES
 // Admin routes - Slaves
+
+// OK
 app.get("/backoffice/slaves", (req, res) => {
   const { page = 1, search, statusFilter } = req.query;
   const limit = 4; // number of items per page
@@ -1113,6 +1127,7 @@ app.get("/backoffice/slaves", (req, res) => {
   });
 });
 
+// OK
 app.get("/backoffice/slaves/:slaveId", (req, res) => {
   const slaveId = req.params.slaveId;
   const slave = allSlavesData.find((item) => item.id === Number(slaveId));
@@ -1122,6 +1137,7 @@ app.get("/backoffice/slaves/:slaveId", (req, res) => {
   // per il primo accesso
 });
 
+// OK
 app.get(`/backoffice/slaves/:slaveId/projects`, (req, res) => {
   const slaveId = req.params.slaveId;
   const { page = 1, status, brand, model, date, extraOptions } = req.query;
@@ -1136,7 +1152,7 @@ app.get(`/backoffice/slaves/:slaveId/projects`, (req, res) => {
     });
   }
 
-  let filteredProjects = slave.projects;
+  let filteredProjects = slave.projects.reverse();
 
   filteredProjects = filteredProjects.filter((project) => {
     return (
@@ -1156,7 +1172,7 @@ app.get(`/backoffice/slaves/:slaveId/projects`, (req, res) => {
   const paginatedResults = filteredProjects.slice(offset, offset + limit);
 
   res.status(200).send({
-    notFilteredData: slave.projects,
+    notFilteredData: slave.projects.reverse(),
     data: paginatedResults,
     pagination: {
       activePage: Number(page),
@@ -1184,6 +1200,7 @@ app.get(`/backoffice/slaves/:slaveId/projects`, (req, res) => {
   });
 });
 
+// OK
 app.get("/backoffice/slaves/:slaveId/projects/:projectId", (req, res) => {
   const { slaveId, projectId } = req.params;
   const slave = allSlavesData.find((slave) => slave.id === Number(slaveId));
@@ -1205,6 +1222,8 @@ app.get("/backoffice/slaves/:slaveId/projects/:projectId", (req, res) => {
   }
 });
 
+//FILE
+// OK
 app.put(
   `/backoffice/slaves/:slaveId/projects/:projectId`,
   upload.single("file"),
@@ -1262,6 +1281,7 @@ app.put(
   }
 );
 
+// OK
 app.put(`/backoffice/slaves/:slaveId`, (req, res) => {
   const { slaveId } = req.params;
 
@@ -1282,6 +1302,7 @@ app.put(`/backoffice/slaves/:slaveId`, (req, res) => {
 });
 
 // Admin routes - counters: per avere i conteggi da mostrare nella dashboard come dati di recap
+// OK
 app.get("/backoffice/projects/counter", (req, res) => {
   try {
     const totalProjects = allSlavesData.reduce((acc, curr) => {
@@ -1341,7 +1362,7 @@ app.get("/backoffice/projects/counter", (req, res) => {
 });
 
 // Per il grafico della dashboard Serve anche una chiamata che faccia GROUP BY delle lavorazioni completate per mese per gli ultimi 6 mesi
-
+// OK
 app.get("/backoffice/tickets/counter", (req, res) => {
   try {
     const totalOpenTickets = allTickets.filter(
@@ -1368,6 +1389,7 @@ app.get("/backoffice/tickets/counter", (req, res) => {
   }
 });
 
+// OK
 app.get("/backoffice/slaves-counter", (req, res) => {
   try {
     const totalUsers = allSlavesData.length;
@@ -1397,6 +1419,7 @@ app.get("/backoffice/slaves-counter", (req, res) => {
 });
 
 // Admin routes - Tickets
+// OK
 app.get("/backoffice/tickets", (req, res) => {
   const { page = 1, status, category, companyName, date } = req.query;
   const limit = 4;
@@ -1431,12 +1454,14 @@ app.get("/backoffice/tickets", (req, res) => {
   });
 });
 
+// OK
 app.get("/backoffice/tickets/:id", (req, res) => {
   const ticketId = req.params.id;
   const ticket = allTickets.find((item) => item.id === Number(ticketId));
   res.status(200).send(ticket);
 });
 
+// OK
 app.put("/backoffice/tickets/:id", (req, res) => {
   const ticketId = req.params.id;
   const ticketData = req.body;
@@ -1455,6 +1480,7 @@ app.put("/backoffice/tickets/:id", (req, res) => {
   }
 });
 
+// OK
 app.post(
   "/backoffice/tickets/:id/messages",
   upload.single("file"),
@@ -1496,10 +1522,12 @@ app.post(
 );
 
 // Admin routes - Pricing Services solutionss
+// TODO
 app.get("/backoffice/solutions", (req, res) => {
   res.status(200).send(allSolutions);
 });
 
+// TODO
 app.put("/backoffice/solutions", (req, res) => {
   let updatedSolutions = req.body;
   allSolutions = updatedSolutions;
@@ -1507,10 +1535,13 @@ app.put("/backoffice/solutions", (req, res) => {
 });
 
 // Admin routes - Pricing credits
+
+// OK
 app.get("/backoffice/credits", (req, res) => {
   res.status(200).send(pricingCredits);
 });
 
+// TODO
 app.put("/backoffice/credits", (req, res) => {
   let updatedCredits = req.body;
   pricingCredits = updatedCredits;
@@ -1518,6 +1549,7 @@ app.put("/backoffice/credits", (req, res) => {
 });
 
 // Admin routes - faq
+// TODO
 app.get("/backoffice/faq", (req, res) => {
   const { title, description, faqList } = faqData;
   res.status(200).send({
@@ -1528,6 +1560,7 @@ app.get("/backoffice/faq", (req, res) => {
 });
 
 // Admin routes - create faq
+// TODO
 app.post("/backoffice/faq", (req, res) => {
   const { question, answer } = req.body;
   const newFaq = {
@@ -1543,6 +1576,7 @@ app.post("/backoffice/faq", (req, res) => {
 });
 
 // Admin routes - update faq
+// TODO
 app.put("/backoffice/faq/:id", (req, res) => {
   const faqId = parseInt(req.params.id, 10);
   const { question, answer } = req.body;
@@ -1572,6 +1606,7 @@ app.put("/backoffice/faq/:id", (req, res) => {
 });
 
 // Admin routes - delete faq
+// TODO
 app.delete("/backoffice/faq/:id", (req, res) => {
   const faqId = parseInt(req.params.id, 10);
   const initialLength = faqData.faqList.length;
@@ -1607,8 +1642,8 @@ const models = [
   { id: 5, brandId: 2, name: "A4" },
 ];
 const engines = [
-  { id: 1, modelId: 1, name: "118i" },
-  { id: 2, modelId: 1, name: "120d" },
+  { id: 1, modelId: 1, name: "B38" },
+  { id: 2, modelId: 1, name: "B47" },
   { id: 3, modelId: 2, name: "220i" },
   { id: 4, modelId: 3, name: "1.4 TFSI" },
   { id: 5, modelId: 3, name: "1.4 TFSI" },
@@ -1632,8 +1667,8 @@ const gearboxes = [
   { id: 14, engineId: 7, name: "Automatic" },
 ];
 const engineHp = [
-  { id: 1, engineId: 1, name: 100 },
-  { id: 2, engineId: 1, name: 120 },
+  { id: 1, engineId: 1, name: 231 },
+  { id: 2, engineId: 1, name: 114 },
   { id: 3, engineId: 2, name: 150 },
   { id: 4, engineId: 2, name: 180 },
   { id: 5, engineId: 3, name: 100 },
@@ -1648,8 +1683,11 @@ const engineHp = [
   { id: 14, engineId: 7, name: 120 },
 ];
 const generations = [
-  { id: 1, gearboxe1: 1, name: "F20" },
-  { id: 2, gearboxe1: 1, name: "F40" },
+  { id: 1, gearboxe1: 1, name: "E81" },
+  { id: 1, gearboxe1: 1, name: "E82" },
+  { id: 1, gearboxe1: 1, name: "E87" },
+  { id: 1, gearboxe1: 1, name: "E88" },
+  { id: 2, gearboxe1: 1, name: "E82" },
   { id: 3, gearboxe1: 2, name: "F22" },
   { id: 4, gearboxe1: 4, name: "8V" },
   { id: 5, gearboxe1: 4, name: "8Y" },
@@ -1683,7 +1721,8 @@ const generations = [
   { id: 33, gearboxe1: 32, name: "B9" },
 ];
 const years = [
-  { id: 1, generationId: 1, name: "2011" },
+  { id: 1, generationId: 1, name: "2004" },
+  { id: 1, generationId: 1, name: "2013" },
   { id: 2, generationId: 1, name: "2012" },
   { id: 3, generationId: 2, name: "2019" },
   { id: 4, generationId: 2, name: "2020" },
@@ -1749,6 +1788,7 @@ const ecuNames = [
   { id: 13, ecuBrandId: 7, name: "SIM8K" },
 ];
 
+// TODO
 // data per popolare i select
 // First call: Get all TYPES of vehicles
 app.get("/frontoffice/project/types", (req, res) => {
@@ -1833,11 +1873,13 @@ app.get("/frontoffice/project/ecuNames/:ecuBrandId", (req, res) => {
   res.status(200).send(filteredEcuNames);
 });
 // user routes - lista delle solutions acquistabili con prezzo
+// TODO
 app.get("/frontoffice/solutions", (req, res) => {
   res.status(200).send(allSolutions);
 });
 
 // user routes - creazione di un progetto
+// TODO
 app.post(
   "/frontoffice/project/:userId/add",
   upload.single("file"),
@@ -1883,6 +1925,7 @@ app.post(
   }
 );
 
+// OK
 app.get("/frontoffice/project/:userId/:projectId", (req, res) => {
   const { userId, projectId } = req.params;
   const slave = allSlavesData.find((slave) => slave.id === Number(userId));
@@ -1905,6 +1948,7 @@ app.get("/frontoffice/project/:userId/:projectId", (req, res) => {
 });
 
 //user routes - elenco progetti
+// OK
 app.get("/frontoffice/:userId/projects", (req, res) => {
   const slaveId = req.params.userId;
   const { page = 1, status, brand, model, date } = req.query;
@@ -2066,6 +2110,7 @@ app.post(
   }
 );
 
+TODO;
 app.post(
   "/frontoffice/tickets/:userId/:projectId/create",
   upload.single("file"),
@@ -2129,6 +2174,7 @@ app.get("/frontoffice/credits", (req, res) => {
 });
 
 // quando lo user conferma il numero di crediti da acquistare, in backend si crea un ordine con un orderId
+// TODO
 app.post("/frontoffice/orders/:userId/create", (req, res) => {
   const { userId } = req.params;
   const orderData = req.body;
@@ -2144,6 +2190,7 @@ app.post("/frontoffice/orders/:userId/create", (req, res) => {
 
 // quando l'api di pagamento di paypal restituisce la conferma del pagamento, in backend si aggiorna lo stato dell'ordine
 // orderData passato come body contient infatti paymentDetails, ovvero paypalOrderId, paymentDate e paymentStatus, dati che vengono restituiti da paypal.
+// TODO
 app.put("/frontoffice/orders/:orderId/complete", (req, res) => {
   const { orderId } = req.params;
   const orderData = req.body;
@@ -2177,3 +2224,9 @@ app.get("/frontoffice/faq", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+// {
+//   "id": 4,
+//   "question": "Posso modificare o cancellare una lavorazione?",
+//   "answer": "E' possibile richiedere la modifica o la cancellazione di una lavorazione, contattando l'amministratore tramite l'apposito ticket. La richiesta verrà valutata e risolta dall'amministratore."
+// },
